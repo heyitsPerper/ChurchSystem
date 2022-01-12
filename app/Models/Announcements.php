@@ -10,4 +10,6 @@ class Announcements extends Model
     use HasFactory;
     protected $table = 'announcements';
     public $timestamps = false;
+
+    protected $dates = ['date'];
 }

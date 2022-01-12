@@ -8,6 +8,8 @@ use App\Http\Controllers\Collections_Church\Church_CollectionsController;
 use App\Http\Controllers\Collections_Chapel\Chapel_CollectionsController;
 use App\Http\Controllers\DonationController\Donation_Controller;
 use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\Auth\ConsumerAuthController;
+use App\Http\Controllers\ConsumerPagesController;
 use App\Http\Controllers\Officials_Church\Church_OfficialsController;
 use App\Http\Controllers\Officials_Chapel\Chapel_OfficialsController;
 use App\Http\Controllers\Priest_Sched\Priest_SchedController;
@@ -39,7 +41,7 @@ Route::get('baptismal_info/{id}/delete',[BaptismalController::class,'destroy']);
 Route::resource('baptismal_info', BaptismalController::class);
 Route::get('baptismal/search', [BaptismalController::class, 'search'])->name('baptismal.search');
 
-// Confirmation Certificate Resource 
+// Confirmation Certificate Resource
 Route::get('confirmation_info/{id}/delete',[ConfirmationController::class,'destroy']);
 Route::resource('confirmation_info', ConfirmationController::class);
 Route::get('confirmation/search', [ConfirmationController::class, 'search'])->name('confirmation.search');
@@ -107,3 +109,20 @@ Route::get('/displaydata', [EventController::class, 'show']);
 Route::get('report/{id}/delete',[ReportController::class,'destroy']);
 Route::resource('report', ReportController::class);
 Route::get('/bar-chart', [ReportController::class, 'barChart']);
+
+
+Route::get('consumer/login',[ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
+Route::post('consumer/login',[ConsumerAuthController::class, 'login'])->name('consumer.login');
+Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
+Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
+Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
+Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+
+
+Route::prefix('consumer')->middleware('isConsumer')->group(function () {
+    Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
+    Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
+    Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
+
+    Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
+});

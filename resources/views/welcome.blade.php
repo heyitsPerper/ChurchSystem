@@ -39,8 +39,8 @@
                         @else
                             <a href="{{ route('login') }}" class="btn btn-light btn-user">Administrator</a>
 
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-light btn-user">System User</a>
+                            @if (Route::has('consumer.confirmForm'))
+                                <a href="{{ route('consumer.loginForm') }}" class="btn btn-light btn-user">Login Users</a>
 
                             @endif
                         @endauth
