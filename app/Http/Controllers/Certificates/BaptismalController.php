@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Certificates;
 
@@ -16,12 +16,32 @@ class BaptismalController extends Controller
             $search_text = $_GET['query'];
             $child_name = Baptismal::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(2);
             return view('certificate_baptismal.index', ['child_name'=>$child_name]);
-       }    
+       }
        else
        {
             return view('certificate_baptismal.index');
        }
-   }  
+   }
+
+   // Show only pending baptismal that need to be approve
+   public function filterByPending(Request $request)
+   {
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+
+        $baptismal = Baptismal::where('status', 'pending')->paginate(10);
+        return view('certificate_baptismal.index', ['child_name' => $baptismal]);
+   }
+
+    public function acceptPending(Baptismal $baptismal)
+    {
+        $baptismal->status = 'done';
+        $baptismal->update();
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,12 +49,12 @@ class BaptismalController extends Controller
      */
     //display baptismal info in the table from database
     public function index()
-    {   
-        $data=Baptismal::orderBy('id','asc')->paginate(2);
+    {
+        $data=Baptismal::where('status', 'done')->orderBy('id','asc')->paginate(2);
         return view('certificate_baptismal.index',['data'=>$data]);
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,30 +77,19 @@ class BaptismalController extends Controller
     {
         //validation rules
         $request->validate([
-            'child_name'=>'required|string|min:3',
+            'child_name'=>'required|string|min:8',
             'birth_date'=>'required|date',
             'birth_place'=>'required|string',
             'legitimate_ill'=>'required',
-            'mother_name'=>'required|string|min:3',
-            'father_name'=>'required|string|min:3',
+            'mother_name'=>'required|string|min:8',
+            'father_name'=>'required|string|min:8',
             'address'=>'required|string',
             'baptism_date'=>'required|date',
-            'minister'=>'required|string|min:3',
-            'sponsors'=>'required|string|min:3'
+            'minister'=>'required|string|min:8',
+            'sponsors'=>'required|string|min:8'
         ]);
 
-            $data=new Baptismal();
-            $data->child_name=$request->child_name;
-            $data->birth_date=$request->birth_date;
-            $data->birth_place=$request->birth_place;
-            $data->legitimate_ill=$request->legitimate_ill;
-            $data->mother_name=$request->mother_name;
-            $data->father_name=$request->father_name;
-            $data->address=$request->address;
-            $data->baptism_date=$request->baptism_date;
-            $data->minister=$request->minister;
-            $data->sponsors=$request->sponsors;
-            $data->save(); 
+            Baptismal::create($request->all());
 
             return redirect('baptismal_info/create')->with('msg','Data has been submitted');
         }
@@ -160,4 +169,34 @@ class BaptismalController extends Controller
         return redirect('baptismal_info');
     }
 
+    public function request(Request $request)
+    {
+        $request->validate([
+            'child_name'=>'required|string|min:8',
+            'birth_date'=>'required|date',
+            'birth_place'=>'required|string',
+            'legitimate_ill'=>'required',
+            'mother_name'=>'required|string|min:8',
+            'father_name'=>'required|string|min:8',
+            'address'=>'required|string',
+            'baptism_date'=>'required|date',
+            'minister'=>'required|string|min:8',
+            'sponsors'=>'required|string|min:8'
+        ]);
+
+        Baptismal::create([
+            'child_name' => $request->child_name,
+            'birth_date' => $request->birth_date,
+            'birth_place' => $request->birth_place,
+            'legitimate_ill' => $request->legitimate_ill,
+            'mother_name' => $request->mother_name,
+            'father_name' => $request->father_name,
+            'address' => $request->address,
+            'baptism_date' => $request->baptism_date,
+            'minister' => $request->minister,
+            'sponsors' => $request->sponsors
+        ]);
+
+
+    }
 }

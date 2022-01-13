@@ -9,19 +9,36 @@ use App\Models\Confirmation;
 class ConfirmationController extends Controller
 {
    //search child's name
-   public function search(Request $request) 
+   public function search(Request $request)
     {
         if(isset($_GET['query']))
         {
              $search_text = $_GET['query'];
              $child_name = Confirmation::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(5);
              return view('certificate_confirmation.index', ['child_name'=>$child_name]);
-        }   
+        }
         else
         {
              return view('certificate_confirmation.index');
         }
-    } 
+    }
+
+    public function filterByPending(Request $request)
+    {
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $confirmation = Confirmation::where('status', 'pending')->paginate(10);
+        return view('certificate_confirmation.index', ['child_name' => $confirmation]);
+    }
+
+    public function acceptPending(Confirmation $confirmation)
+    {
+        $confirmation->status = 'done';
+        $confirmation->update();
+        return redirect()->back();
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,7 +46,7 @@ class ConfirmationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Confirmation::orderBy('id','asc')->paginate(5);
         return view('certificate_confirmation.index',['data'=>$data]);
     }
@@ -90,7 +107,7 @@ class ConfirmationController extends Controller
         $data=Confirmation::find($id);
         return view('certificate_confirmation.show',['data'=>$data]);
     }
- 
+
     /**
      * Show the form for editing the specified resource.
      *

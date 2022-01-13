@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('11111111'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
+
+        $this->call([
+            ConsumerSeeder::class
+        ]);
     }
 }

@@ -42,5 +42,4 @@
     </div>
 </div>
 
-# Request Certificates
 @endsection

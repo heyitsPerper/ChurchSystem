@@ -10,6 +10,7 @@ use App\Http\Controllers\DonationController\Donation_Controller;
 use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\Auth\ConsumerAuthController;
 use App\Http\Controllers\ConsumerPagesController;
+use App\Http\Controllers\ConsumerRequestCertificateController;
 use App\Http\Controllers\Officials_Church\Church_OfficialsController;
 use App\Http\Controllers\Officials_Chapel\Chapel_OfficialsController;
 use App\Http\Controllers\Priest_Sched\Priest_SchedController;
@@ -39,12 +40,16 @@ Auth::routes();
 // Baptismal Certificate Resource
 Route::get('baptismal_info/{id}/delete',[BaptismalController::class,'destroy']);
 Route::resource('baptismal_info', BaptismalController::class);
+Route::get('baptismal/filter', [BaptismalController::class, 'filterByPending'])->name('baptismal.pending');
+Route::put('baptismal/accept/{baptismal}', [BaptismalController::class, 'acceptPending'])->name('baptismal.accept');
 Route::get('baptismal/search', [BaptismalController::class, 'search'])->name('baptismal.search');
 
 // Confirmation Certificate Resource
 Route::get('confirmation_info/{id}/delete',[ConfirmationController::class,'destroy']);
 Route::resource('confirmation_info', ConfirmationController::class);
 Route::get('confirmation/search', [ConfirmationController::class, 'search'])->name('confirmation.search');
+Route::get('confirmation/filter', [ConfirmationController::class, 'filterByPending'])->name('confirmation.pending');
+Route::put('baptismal/accept/{confirmation}', [ConfirmationController::class, 'acceptPending'])->name('confirmation.accept');
 
 // Marriage Certificate Resource
 Route::get('marriage_info/{id}/delete',[MarriageController::class,'destroy']);
@@ -123,6 +128,12 @@ Route::prefix('consumer')->middleware('isConsumer')->group(function () {
     Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
     Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
     Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
+
+    Route::get('/request/baptismal', [ConsumerPagesController::class, 'requestBaptismalPage'])->name('consumer.request_baptismal_page');
+    Route::get('request/confirmation', [ConsumerPagesController::class, 'requestConfirmationPage'])->name('consumer.request_confirmation_page');
+
+    Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
+    Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
 
     Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 });

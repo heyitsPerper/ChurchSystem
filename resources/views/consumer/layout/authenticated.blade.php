@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Church Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -26,13 +31,23 @@
                     <a class="nav-link" href="{{ route('consumer.officers_list') }}">Officers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('consumer.priest_sched') }}">Priest Schedule</a>
+                    <a class="nav-link" href="{{ route('consumer.priest_sched') }}">Priest Schedules</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="requestDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       Request Certificates
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="requestDropdown">
+                        <li><a href="{{route('consumer.request_baptismal_page')}}" class="dropdown-item">Baptismal</a></li>
+                        <li><a href="{{route('consumer.request_confirmation_page')}}" class="dropdown-item">Confirmation</a></li>
+                    </ul>
                 </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ auth()->guard('consumer')->user()->fullName() }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                    <li><a href="#" class="dropdown-item">Profile</a></li>
                     <li>
                         <form action="{{route('consumer.logout')}}" method="post">
                             @csrf

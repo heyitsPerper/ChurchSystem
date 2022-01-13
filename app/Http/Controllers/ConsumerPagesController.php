@@ -29,5 +29,14 @@ class ConsumerPagesController extends Controller
         ]);
     }
 
+    public function requestBaptismalPage()
+    {
+        return view('consumer.baptismal_request');
+    }
+
+    public function requestConfirmationPage()
+    {
+        return view('consumer.confirmation_request');
+    }
 
 }
