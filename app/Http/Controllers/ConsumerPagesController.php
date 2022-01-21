@@ -31,12 +31,12 @@ class ConsumerPagesController extends Controller
 
     public function requestBaptismalPage()
     {
-        return view('consumer.baptismal_request');
+        return view('consumer.certificates.baptismal_request');
     }
 
     public function requestConfirmationPage()
     {
-        return view('consumer.confirmation_request');
+        return view('consumer.certificates.confirmation_request');
     }
 
 }

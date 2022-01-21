@@ -23,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav ms-auto my-2 my-lg-0" style="--bs-scroll-height: 100px;">
+            <ul class="navbar-nav ms-auto my-2 my-lg-0 " style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('consumer.dashboard') }}">Announcements</a>
                 </li>
@@ -47,7 +47,7 @@
                   {{ auth()->guard('consumer')->user()->fullName() }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <li><a href="#" class="dropdown-item">Profile</a></li>
+                    <li><a href="{{route('consumer.profile')}}" class="dropdown-item">Profile</a></li>
                     <li>
                         <form action="{{route('consumer.logout')}}" method="post">
                             @csrf

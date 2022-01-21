@@ -11,15 +11,16 @@ class ConfirmationController extends Controller
    //search child's name
    public function search(Request $request)
     {
+       $pendings = Confirmation::where('status', 'pending')->count();
         if(isset($_GET['query']))
         {
              $search_text = $_GET['query'];
              $child_name = Confirmation::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(5);
-             return view('certificate_confirmation.index', ['child_name'=>$child_name]);
+             return view('certificate_confirmation.index', ['child_name'=>$child_name, 'pendings' => $pendings]);
         }
         else
         {
-             return view('certificate_confirmation.index');
+             return view('certificate_confirmation.index', ['pendings' => $pendings]);
         }
     }
 
@@ -30,7 +31,8 @@ class ConfirmationController extends Controller
         ]);
 
         $confirmation = Confirmation::where('status', 'pending')->paginate(10);
-        return view('certificate_confirmation.index', ['child_name' => $confirmation]);
+        $pendings = Confirmation::where('status', 'pending')->count();
+        return view('certificate_confirmation.index', ['child_name' => $confirmation, 'pendings' => $pendings]);
     }
 
     public function acceptPending(Confirmation $confirmation)
@@ -47,8 +49,9 @@ class ConfirmationController extends Controller
      */
     public function index()
     {
-        $data=Confirmation::orderBy('id','asc')->paginate(5);
-        return view('certificate_confirmation.index',['data'=>$data]);
+        $data=Confirmation::where('status', 'done')->orderBy('id','asc')->paginate(5);
+        $pendings = Confirmation::where('status', 'pending')->count();
+        return view('certificate_confirmation.index',['data'=>$data, 'pendings' => $pendings]);
     }
 
     /**

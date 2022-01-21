@@ -49,7 +49,7 @@ Route::get('confirmation_info/{id}/delete',[ConfirmationController::class,'destr
 Route::resource('confirmation_info', ConfirmationController::class);
 Route::get('confirmation/search', [ConfirmationController::class, 'search'])->name('confirmation.search');
 Route::get('confirmation/filter', [ConfirmationController::class, 'filterByPending'])->name('confirmation.pending');
-Route::put('baptismal/accept/{confirmation}', [ConfirmationController::class, 'acceptPending'])->name('confirmation.accept');
+Route::put('confirmation/accept/{confirmation}', [ConfirmationController::class, 'acceptPending'])->name('confirmation.accept');
 
 // Marriage Certificate Resource
 Route::get('marriage_info/{id}/delete',[MarriageController::class,'destroy']);
@@ -135,5 +135,7 @@ Route::prefix('consumer')->middleware('isConsumer')->group(function () {
     Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
     Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
 
+    Route::get('/profile', [ConsumerAuthController::class, 'profile'])->name('consumer.profile');
+    Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
     Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 });

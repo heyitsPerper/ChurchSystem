@@ -21,7 +21,11 @@
                             <a href="{{url('confirmation_info')}}" style="margin-right: 10px;" class="float-right btn btn-sm btn-info shadow-sm">
                                 <i class="fas fa-eye fa-sm text-white-50"></i> Show All</a>
                             <a href="{{route('confirmation.pending', ['status' => 'pending'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm">
-                                <i class="fa-sm text-white-50"></i>Pendings</a>
+                                <i class="fa-sm text-white-50"></i>Pendings
+                                <span class="bg-danger badge">
+                                    {{$pendings}}
+                                  </span>
+                            </a>
                 </div>
 
                 <div class="card-body table-responsive">
@@ -50,12 +54,13 @@
                                             <td>
                                                 <div class="d-flex">
                                                     @if ($d->status == 'pending')
-                                                        <form action="{{route('baptismal.accept', ['baptismal' => $d])}}" method="post">
+                                                        <form action="{{route('confirmation.accept', ['confirmation' => $d])}}" method="post">
                                                             @method('PUT')
                                                             @csrf
                                                             <button type="submit" class="btn btn-success btn-sm">Accept</button>
                                                         </form>
                                                     @endif
+
                                                     <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                                     <a href="{{url('confirmation_info/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>
                                                     <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('confirmation_info/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm">Delete</a>
@@ -96,6 +101,10 @@
                                             <td> {{$d->father_name}}</td>
                                             <td> {{$d->confirmation_date}}</td>
                                             <td>
+                                                @if($d->status == 'done')
+                                                        <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-success btn-sm">Print</a>
+                                                @endif
+
                                                 <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                                 <a href="{{url('confirmation_info/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>
                                                 <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('confirmation_info/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm">Delete</a>

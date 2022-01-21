@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ConsumerProfileRequest;
 use App\Http\Requests\ConsumerSignUpRequest;
 use App\Mail\ConsumerMail;
 use App\Models\Announcements;
@@ -116,5 +117,15 @@ class ConsumerAuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect(route('consumer.loginForm'));
+    }
+
+    public function profile(Request $request)
+    {
+        return view('consumer.profile');
+    }
+
+    public function update(ConsumerProfileRequest $request)
+    {
+        dd($request->validated());
     }
 }

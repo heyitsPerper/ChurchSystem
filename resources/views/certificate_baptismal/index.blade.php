@@ -20,8 +20,12 @@
                             <i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
                             <a href="{{url('baptismal_info')}}" style="margin-right: 10px;" class="float-right btn btn-sm btn-info shadow-sm">
                             <i class="fas fa-eye fa-sm text-white-50"></i> Show All</a>
-                            <a href="{{route('baptismal.pending', ['status' => 'pending'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm">
-                            <i class="fa-sm text-white-50"></i>Pendings</a>
+                            <a href="{{route('baptismal.pending', ['status' => 'pending'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm ">
+                                <i class="fa-sm text-white-50"></i>Pendings
+                                <span class="bg-danger badge">
+                                    {{$pendings}}
+                                  </span>
+                            </a>
                 </div>
 
                 <div class="card-body table-responsive">
@@ -56,6 +60,7 @@
                                                     <button type="submit" class="btn btn-success btn-sm">Accept</button>
                                                 </form>
                                             @endif
+
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                             <a href="{{url('baptismal_info/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>
                                             <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('baptismal_info/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm">Delete</a>
@@ -96,6 +101,11 @@
                                         <td> {{$d->father_name}}</td>
                                         <td>{{$d->baptism_date}}</td>
                                         <td>
+                                            @if($d->status == 'done')
+                                                <button class="btn btn-success btn-sm" onclick="window.print()">Print</button>
+                                                {{-- <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-success btn-sm">Print</a> --}}
+                                            @endif
+
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                             <a href="{{url('baptismal_info/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>
                                             <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('baptismal_info/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm">Delete</a>

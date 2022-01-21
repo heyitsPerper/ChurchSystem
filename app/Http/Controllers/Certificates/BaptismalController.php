@@ -11,15 +11,17 @@ class BaptismalController extends Controller
    //search child's name
    public function search(Request $request)
    {
+       $pendings = Baptismal::where('status', 'pending')->count();
+
        if(isset($_GET['query']))
        {
-            $search_text = $_GET['query'];
-            $child_name = Baptismal::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(2);
-            return view('certificate_baptismal.index', ['child_name'=>$child_name]);
+           $search_text = $_GET['query'];
+           $child_name = Baptismal::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(2);
+            return view('certificate_baptismal.index', ['child_name'=>$child_name, 'pendings' => $pendings]);
        }
        else
        {
-            return view('certificate_baptismal.index');
+            return view('certificate_baptismal.index', ['pendings' => $pendings]);
        }
    }
 
@@ -32,7 +34,8 @@ class BaptismalController extends Controller
 
 
         $baptismal = Baptismal::where('status', 'pending')->paginate(10);
-        return view('certificate_baptismal.index', ['child_name' => $baptismal]);
+        $pendings = Baptismal::where('status', 'pending')->count();
+        return view('certificate_baptismal.index', ['child_name' => $baptismal, 'pendings' => $pendings]);
    }
 
     public function acceptPending(Baptismal $baptismal)
@@ -51,7 +54,8 @@ class BaptismalController extends Controller
     public function index()
     {
         $data=Baptismal::where('status', 'done')->orderBy('id','asc')->paginate(2);
-        return view('certificate_baptismal.index',['data'=>$data]);
+        $pendings = Baptismal::where('status', 'pending')->count();
+        return view('certificate_baptismal.index',['data'=>$data, 'pendings' => $pendings]);
     }
 
 
