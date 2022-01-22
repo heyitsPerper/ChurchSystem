@@ -19,7 +19,7 @@ class ConsumerSeeder extends Seeder
             'firstname' => 'Ferlyn',
             'lastname' => 'Ruiz',
             'purok' => 'purok 1',
-            'contact_number' => '09178781045',
+            'contact_number' => '639178781045',
             'email' => 'ferlynruiz1234@gmail.com',
             'password' => Hash::make('12345678')
         ]);

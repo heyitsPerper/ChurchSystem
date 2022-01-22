@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Announcements;
+use App\Models\Consumer;
 use Carbon\Carbon;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class AnnouncementsController extends Controller
 {
     //search date
-    public function search(Request $request)  
+    public function search(Request $request)
     {
         if(isset($_GET['query']))
         {
@@ -19,26 +21,26 @@ class AnnouncementsController extends Controller
 
               //getting date from db
               $date=new Carbon(request('date'));
-  
+
               //counting date which is equal or greater than the current date
               $activecountgt = Announcements::whereDate('date', '>',   $current_date)->count();
               $activecounte = Announcements::whereDate('date', '=',   $current_date)->count();
               $activecount =  $activecountgt +  $activecounte;
-  
+
               //counting date which is lesser than the current date
               $deactivecount = Announcements::whereDate('date', '<',   $current_date)->count();
-  
+
               //count all the rows in the database
-              $totalcount=Announcements::count(); 
+              $totalcount=Announcements::count();
              $search_text = $_GET['query'];
              $date = Announcements::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
              return view('announcements_view.index', ['date'=>$date], compact('totalcount', 'activecount', 'deactivecount'));
-        }   
-        else                                                                               
+        }
+        else
         {
              return view('announcements_view.index');
         }
-    } 
+    }
 
     /**
      * Create a new controller instance.
@@ -56,7 +58,7 @@ class AnnouncementsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         //getting the current date
         $current_date=Carbon::now();
 
@@ -72,10 +74,10 @@ class AnnouncementsController extends Controller
         $deactivecount = Announcements::whereDate('date', '<',   $current_date)->count();
 
         //count all the rows in the database
-        $totalcount=Announcements::count(); 
+        $totalcount=Announcements::count();
 
         //get all data
-        $data=Announcements::orderBy('date','desc')->paginate(5); 
+        $data=Announcements::orderBy('date','desc')->paginate(5);
         return view('announcements_view.index',['data'=>$data], compact('totalcount', 'activecount', 'deactivecount'));
     }
 
@@ -112,6 +114,17 @@ class AnnouncementsController extends Controller
         $data->time=$request->time;
         $data->date=$request->date;
         $data->save();
+
+        $consumers = Consumer::where('purok', $data->location)->get();
+
+        foreach($consumers as $consumer)
+        {
+            Nexmo::message()->send([
+                    'to' => $consumer['contact_number'],
+                    'from' => 'Church of Hilongos',
+                    'text' => "Title: $data->title, Description: $data->description. For more information, kindly login to your account."
+                ]);
+        }
 
         return redirect('announcements/create')->with('msg','Data has been submitted');
     }

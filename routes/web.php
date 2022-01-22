@@ -18,6 +18,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,3 +140,6 @@ Route::prefix('consumer')->middleware('isConsumer')->group(function () {
     Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
     Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 });
+
+
+// Route::get('/sms', [SmsController::class, 'index']);
