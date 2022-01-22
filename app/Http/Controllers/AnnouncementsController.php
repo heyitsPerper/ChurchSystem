@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendSms;
 use Illuminate\Http\Request;
 use App\Models\Announcements;
 use App\Models\Consumer;
@@ -115,16 +116,7 @@ class AnnouncementsController extends Controller
         $data->date=$request->date;
         $data->save();
 
-        $consumers = Consumer::where('purok', $data->location)->get();
-
-        foreach($consumers as $consumer)
-        {
-            Nexmo::message()->send([
-                    'to' => $consumer['contact_number'],
-                    'from' => 'Church of Hilongos',
-                    'text' => "Title: $data->title, Description: $data->description. For more information, kindly login to your account."
-                ]);
-        }
+        SendSms::dispatch($data);
 
         return redirect('announcements/create')->with('msg','Data has been submitted');
     }
