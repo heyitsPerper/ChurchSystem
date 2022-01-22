@@ -24,6 +24,7 @@ class CreateConfirmationTable extends Migration
             $table->date('confirmation_date');
             $table->string('minister');
             $table->string('sponsors');
+            $table->string('status')->default('done');
         });
     }
 

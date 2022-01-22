@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit">Confirm</button>
+                <button type="submit">Login</button>
             </div>
 
             <p class="text-center">Don't have account? <a href="{{route('consumer.signup')}}">Register</a></p>

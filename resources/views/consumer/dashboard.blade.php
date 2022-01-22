@@ -1,7 +1,6 @@
 @extends('consumer.layout.authenticated')
 
 @section('content')
-<script src="https://unpkg.com/swiper@7/swiper-bundle.esm.browser.min.js"></script>
 <div class="mt-5 ">
     <div class="row gap-3 justify-content-center m-2 m-md-0 ">
         <div class="col-md-4 card shadow p-3">
@@ -42,5 +41,4 @@
     </div>
 </div>
 
-# Request Certificates
 @endsection

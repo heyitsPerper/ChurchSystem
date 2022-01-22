@@ -14,35 +14,48 @@
                     {{session('msg')}}
                 </div>
             @endif
-<!--
-            @if($errors->any())
-                <div class="alert alert-danger alert-block">
-                <button type="button"  class="close" data-dismiss="alert">&times;</button>
-                Make sure to fill all the fields.
-                </div>
-            @endif -->
+
 
             <form method="post" action="{{url('baptismal_info')}}">
                 @csrf
                 <table class="table table-hover">
                     <tr>
-                        <th>Name of Child</th> 
+                        <th>Name of Child</th>
                         <td>
                             <input type="text" name="child_name" class="form-control" value="{{ (old('child_name')) }}" required>
+                            @error('child_name')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
-                    <tr> 
+                    <tr>
                         <th>Date of Birth</th>
                         <td>
                             <input type="date" name="birth_date" class="form-control" value="{{ (old('birth_date')) }}"required>
+                            @error('birth_date')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
+
                         </td>
                     </tr>
                     <tr>
                         <th>Place of Birth</th>
                         <td>
                             <input type="text" name="birth_place" class="form-control" value="{{ (old('birth_place')) }}" required>
+                            @error('birth_place')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
-                    </tr> 
+                    </tr>
                     <tr>
                         <th>Legitimate or Illegitimate</th>
                         <td>
@@ -50,42 +63,84 @@
                             <br />
                             <input type="radio" name="legitimate_ill" value="1" required> Illegitimate
                             <br />
+                            @error('legitimate_ill')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Name of Mother</th>
                         <td>
                             <input type="text" name="mother_name" class="form-control" value="{{ (old('mother_name')) }}" required>
+                            @error('mother_name')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Name of Father</th>
                         <td>
                             <input type="text" name="father_name" class="form-control" value="{{ (old('father_name')) }}" required>
+                            @error('father_name')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Address</th>
                         <td>
                             <input type="text" name="address" class="form-control" value="{{ (old('address')) }}" required>
+                            @error('address')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Date of Baptism</th>
                         <td>
                             <input type="date" name="baptism_date" class="form-control" value="{{ (old('baptism_date')) }}" required>
+                            @error('baptism_date')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Minister</th>
                         <td>
                             <input type="text" name="minister" class="form-control" value="{{ (old('minister')) }}" required>
+                            @error('minister')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <th>Sponsors</th>
                         <td>
                             <input type="text" name="sponsors" class="form-control" placeholder="Separate sponsor's name with comma" value="{{ (old('sponsors')) }}" required>
+                            @error('sponsors')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
