@@ -102,7 +102,7 @@
                                             <td> {{$d->confirmation_date}}</td>
                                             <td>
                                                 @if($d->status == 'done')
-                                                        <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-success btn-sm">Print</a>
+                                                        <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" class="btn btn-success btn-sm">Print</a>
                                                 @endif
 
                                                 <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>

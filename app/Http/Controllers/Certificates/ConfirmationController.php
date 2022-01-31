@@ -5,22 +5,20 @@ namespace App\Http\Controllers\Certificates;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Confirmation;
+use Carbon\Carbon;
 
 class ConfirmationController extends Controller
 {
-   //search child's name
-   public function search(Request $request)
+    //search child's name
+    public function search(Request $request)
     {
-       $pendings = Confirmation::where('status', 'pending')->count();
-        if(isset($_GET['query']))
-        {
-             $search_text = $_GET['query'];
-             $child_name = Confirmation::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(5);
-             return view('certificate_confirmation.index', ['child_name'=>$child_name, 'pendings' => $pendings]);
-        }
-        else
-        {
-             return view('certificate_confirmation.index', ['pendings' => $pendings]);
+        $pendings = Confirmation::where('status', 'pending')->count();
+        if (isset($_GET['query'])) {
+            $search_text = $_GET['query'];
+            $child_name = Confirmation::where('child_name', 'LIKE', '%' . $search_text . '%')->paginate(5);
+            return view('certificate_confirmation.index', ['child_name' => $child_name, 'pendings' => $pendings]);
+        } else {
+            return view('certificate_confirmation.index', ['pendings' => $pendings]);
         }
     }
 
@@ -49,9 +47,9 @@ class ConfirmationController extends Controller
      */
     public function index()
     {
-        $data=Confirmation::where('status', 'done')->orderBy('id','asc')->paginate(5);
+        $data = Confirmation::where('status', 'done')->orderBy('id', 'asc')->paginate(5);
         $pendings = Confirmation::where('status', 'pending')->count();
-        return view('certificate_confirmation.index',['data'=>$data, 'pendings' => $pendings]);
+        return view('certificate_confirmation.index', ['data' => $data, 'pendings' => $pendings]);
     }
 
     /**
@@ -73,30 +71,30 @@ class ConfirmationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'child_name'=>'required',
-            'baptism_date'=>'required',
-            'baptism_place'=>'required',
-            'mother_name'=>'required',
-            'father_name'=>'required',
-            'address'=>'required',
-            'confirmation_date'=>'required',
-            'minister'=>'required',
-            'sponsors'=>'required'
+            'child_name' => 'required',
+            'baptism_date' => 'required',
+            'baptism_place' => 'required',
+            'mother_name' => 'required',
+            'father_name' => 'required',
+            'address' => 'required',
+            'confirmation_date' => 'required',
+            'minister' => 'required',
+            'sponsors' => 'required'
         ]);
 
-        $data=new Confirmation();
-        $data->child_name=$request->child_name;
-        $data->baptism_date=$request->baptism_date;
-        $data->baptism_place=$request->baptism_place;
-        $data->mother_name=$request->mother_name;
-        $data->father_name=$request->father_name;
-        $data->address=$request->address;
-        $data->confirmation_date=$request->confirmation_date;
-        $data->minister=$request->minister;
-        $data->sponsors=$request->sponsors;
+        $data = new Confirmation();
+        $data->child_name = $request->child_name;
+        $data->baptism_date = $request->baptism_date;
+        $data->baptism_place = $request->baptism_place;
+        $data->mother_name = $request->mother_name;
+        $data->father_name = $request->father_name;
+        $data->address = $request->address;
+        $data->confirmation_date = $request->confirmation_date;
+        $data->minister = $request->minister;
+        $data->sponsors = $request->sponsors;
         $data->save();
 
-        return redirect('confirmation_info/create')->with('msg','Data has been submitted');
+        return redirect('confirmation_info/create')->with('msg', 'Data has been submitted');
     }
 
     /**
@@ -107,8 +105,8 @@ class ConfirmationController extends Controller
      */
     public function show($id)
     {
-        $data=Confirmation::find($id);
-        return view('certificate_confirmation.show',['data'=>$data]);
+        $data = Confirmation::find($id);
+        return view('certificate_confirmation.show', ['data' => $data]);
     }
 
     /**
@@ -119,8 +117,8 @@ class ConfirmationController extends Controller
      */
     public function edit($id)
     {
-        $data=Confirmation::find($id);
-        return view('certificate_confirmation.edit',['data'=>$data]);
+        $data = Confirmation::find($id);
+        return view('certificate_confirmation.edit', ['data' => $data]);
     }
 
     /**
@@ -133,30 +131,30 @@ class ConfirmationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'child_name'=>'required',
-            'baptismdate'=>'required',
-            'baptismplace'=>'required',
-            'mother_name'=>'required',
-            'father_name'=>'required',
-            'address'=>'required',
-            'confirmationdate'=>'required',
-            'minister'=>'required',
-            'sponsors'=>'required'
+            'child_name' => 'required',
+            'baptismdate' => 'required',
+            'baptismplace' => 'required',
+            'mother_name' => 'required',
+            'father_name' => 'required',
+            'address' => 'required',
+            'confirmationdate' => 'required',
+            'minister' => 'required',
+            'sponsors' => 'required'
         ]);
 
-        $data=Confirmation::find($id);
-        $data->child_name=$request->child_name;
-        $data->baptismdate=$request->baptismdate;
-        $data->baptismplace=$request->baptismplace;
-        $data->mother_name=$request->mother_name;
-        $data->father_name=$request->father_name;
-        $data->address=$request->address;
-        $data->confirmationdate=$request->confirmationdate;
-        $data->minister=$request->minister;
-        $data->sponsors=$request->sponsors;
+        $data = Confirmation::find($id);
+        $data->child_name = $request->child_name;
+        $data->baptismdate = $request->baptismdate;
+        $data->baptismplace = $request->baptismplace;
+        $data->mother_name = $request->mother_name;
+        $data->father_name = $request->father_name;
+        $data->address = $request->address;
+        $data->confirmationdate = $request->confirmationdate;
+        $data->minister = $request->minister;
+        $data->sponsors = $request->sponsors;
         $data->save();
 
-        return redirect('confirmation_info/'.$id.'/edit')->with('msg','Data has been updated');
+        return redirect('confirmation_info/' . $id . '/edit')->with('msg', 'Data has been updated');
     }
 
     /**
@@ -167,8 +165,12 @@ class ConfirmationController extends Controller
      */
     public function destroy($id)
     {
-        Confirmation::where('id',$id)->delete();
+        Confirmation::where('id', $id)->delete();
         return redirect('confirmation_info');
     }
 
+    public function printView(Confirmation $confirmation)
+    {
+        return view('certificate_confirmation.print', ['confirmation' => $confirmation, 'date' => Carbon::createFromFormat('Y-m-d', $confirmation->confirmation_date)->toFormattedDateString()]);
+    }
 }

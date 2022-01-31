@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Certificates;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baptismal;
+use Carbon\Carbon;
 
 class BaptismalController extends Controller
 {
@@ -201,6 +202,11 @@ class BaptismalController extends Controller
             'sponsors' => $request->sponsors
         ]);
 
-
     }
+
+    public function printView(Baptismal $baptismal)
+    {
+        return view('certificate_baptismal.print',['baptismal' => $baptismal, 'date' => Carbon::createFromFormat('Y-m-d',$baptismal->baptism_date)->toFormattedDateString()]);
+    }
+
 }

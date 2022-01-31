@@ -102,8 +102,8 @@
                                         <td>{{$d->baptism_date}}</td>
                                         <td>
                                             @if($d->status == 'done')
-                                                <button class="btn btn-success btn-sm" onclick="window.print()">Print</button>
-                                                {{-- <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-success btn-sm">Print</a> --}}
+                                                {{-- <button class="btn btn-success btn-sm" onclick="window.print()">Print</button> --}}
+                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" class="btn btn-success btn-sm">Print</a>
                                             @endif
 
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
