@@ -9,7 +9,7 @@
             <div class="pt-4">
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" class="form-control" placeholder="Enter your email" name="email" required>
+                    <input type="email" class="form-control" placeholder="Enter your email" name="email" value="{{old('email')}}" required>
                     @error('email')
                         <div>
                             <span style="font-size: 15px" class="text-danger">{{ $message }}</span>

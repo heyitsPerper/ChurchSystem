@@ -39,86 +39,89 @@ Route::get('/', function () {
 Auth::routes();
 
 // Baptismal Certificate Resource
-Route::get('baptismal_info/{id}/delete',[BaptismalController::class,'destroy']);
+Route::get('baptismal_info/{id}/delete', [BaptismalController::class, 'destroy']);
 Route::resource('baptismal_info', BaptismalController::class);
 Route::get('baptismal/filter', [BaptismalController::class, 'filterByPending'])->name('baptismal.pending');
 Route::put('baptismal/accept/{baptismal}', [BaptismalController::class, 'acceptPending'])->name('baptismal.accept');
 Route::get('baptismal/search', [BaptismalController::class, 'search'])->name('baptismal.search');
+Route::get('baptismal/{baptismal}', [BaptismalController::class, 'printView'])->name('baptismal.printView');
 
 // Confirmation Certificate Resource
-Route::get('confirmation_info/{id}/delete',[ConfirmationController::class,'destroy']);
+Route::get('confirmation_info/{id}/delete', [ConfirmationController::class, 'destroy']);
 Route::resource('confirmation_info', ConfirmationController::class);
 Route::get('confirmation/search', [ConfirmationController::class, 'search'])->name('confirmation.search');
 Route::get('confirmation/filter', [ConfirmationController::class, 'filterByPending'])->name('confirmation.pending');
 Route::put('confirmation/accept/{confirmation}', [ConfirmationController::class, 'acceptPending'])->name('confirmation.accept');
+Route::get('confirmation/{confirmation}', [ConfirmationController::class, 'printView'])->name('confirmation.printView');
+
 
 // Marriage Certificate Resource
-Route::get('marriage_info/{id}/delete',[MarriageController::class,'destroy']);
+Route::get('marriage_info/{id}/delete', [MarriageController::class, 'destroy']);
 Route::resource('marriage_info', MarriageController::class);
 Route::get('marriage/search', [MarriageController::class, 'search'])->name('marriage.search');
 
 // Death Certificate Resource
-Route::get('death_info/{id}/delete',[DeathController::class,'destroy']);
+Route::get('death_info/{id}/delete', [DeathController::class, 'destroy']);
 Route::resource('death_info', DeathController::class);
 Route::get('death/search', [DeathController::class, 'search'])->name('death.search');
 
 
 //-------------------------MARILOU CODES-------------------------
 // Church Collections Resource
-Route::get('church_collections/{id}/delete',[Church_CollectionsController::class,'destroy']);
+Route::get('church_collections/{id}/delete', [Church_CollectionsController::class, 'destroy']);
 Route::resource('church_collections', Church_CollectionsController::class);
 Route::get('churchcollections/search', [Church_CollectionsController::class, 'search'])->name('churchcollections.search');
 
 // Chapel Collections Resource
-Route::get('chapel_collections/{id}/delete',[Chapel_CollectionsController::class,'destroy']);
+Route::get('chapel_collections/{id}/delete', [Chapel_CollectionsController::class, 'destroy']);
 Route::resource('chapel_collections', Chapel_CollectionsController::class);
 Route::get('chapelcollections/search', [Chapel_CollectionsController::class, 'search'])->name('chapelcollections.search');
 
 // Donation Resource
-Route::get('donations/{id}/delete',[Donation_Controller::class,'destroy']);
+Route::get('donations/{id}/delete', [Donation_Controller::class, 'destroy']);
 Route::resource('donations', Donation_Controller::class);
 Route::get('donation/search', [Donation_Controller::class, 'search'])->name('donation.search');
 
 
 //-------------------------ELLAINE CODES-------------------------
 // Announcements Resource
-Route::get('announcements/{id}/delete',[AnnouncementsController::class,'destroy']);
+Route::get('announcements/{id}/delete', [AnnouncementsController::class, 'destroy']);
 Route::resource('announcements', AnnouncementsController::class);
 Route::get('announcement/search', [AnnouncementsController::class, 'search'])->name('announcement.search');
 
 
 //-------------------------EMILYN CODES-------------------------
 // Church Officials Resource
-Route::get('church_officials/{id}/delete',[Church_OfficialsController::class,'destroy']);
+Route::get('church_officials/{id}/delete', [Church_OfficialsController::class, 'destroy']);
 Route::resource('church_officials', Church_OfficialsController::class);
 
 // Chapel Officials Resource
-Route::get('chapel_officials/{id}/delete',[Chapel_OfficialsController::class,'destroy']);
+Route::get('chapel_officials/{id}/delete', [Chapel_OfficialsController::class, 'destroy']);
 Route::resource('chapel_officials', Chapel_OfficialsController::class);
 
 
 //-------------------------ASILEY CODES-------------------------
 // Priest Schedule Resource
-Route::get('priest_sched/{id}/delete',[Priest_SchedController::class,'destroy']);
+Route::get('priest_sched/{id}/delete', [Priest_SchedController::class, 'destroy']);
 Route::resource('priest_sched', Priest_SchedController::class);
 Route::get('sched/search', [Priest_SchedController::class, 'search'])->name('sched.search');
 
 
 //-------------------------FERLYN CODES-------------------------
 // Calendar Resource
-Route::get('events/{id}/delete',[EventController::class,'destroy']);
+Route::get('events/{id}/delete', [EventController::class, 'destroy']);
 Route::resource('/events', EventController::class);
 Route::get('/addeventurl', [EventController::class, 'display']);
 Route::get('/displaydata', [EventController::class, 'show']);
 
 // Generated Reports Resource
-Route::get('report/{id}/delete',[ReportController::class,'destroy']);
+Route::get('report/{id}/delete', [ReportController::class, 'destroy']);
 Route::resource('report', ReportController::class);
 Route::get('/bar-chart', [ReportController::class, 'barChart']);
 
 
-Route::get('consumer/login',[ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
-Route::post('consumer/login',[ConsumerAuthController::class, 'login'])->name('consumer.login');
+Route::get('consumer/login', [ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
+Route::post('consumer/login', [ConsumerAuthController::class, 'login'])->name('consumer.login');
 Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
 Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
 Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');

@@ -27,7 +27,7 @@ class ConsumerSignUpRequest extends FormRequest
             'firstname' => 'required|max:255|string',
             'lastname' => 'required|max:255|string',
             'purok' => 'required|string',
-            'contact_number' => 'required|max:11',
+            'contact_number' => 'required|numeric',
             'email' => 'required|email|unique:consumers|max:255',
             'password' => 'required|string|confirmed|min:8'
         ];

@@ -37,7 +37,7 @@ class ConsumerRequestCertificateController extends Controller
             'status' => 'pending'
         ]);
 
-        return redirect()->back()->with('success', 'Successfully send request for baptismal certificate!');
+        return redirect()->back()->with('success', 'Successfully send request for baptismal certificate! Kindly visit the church next week to claim your requested certificate.');
     }
 
     public function requestConfirmation(Request $request)
@@ -66,6 +66,6 @@ class ConsumerRequestCertificateController extends Controller
             'sponsors' => $request->sponsors,
             'status' => 'pending'
         ]);
-        return redirect()->back()->with('success', 'Successfully send request for confirmation certificate!');
+        return redirect()->back()->with('success', 'Successfully send request for confirmation certificate! Kindly visit the church next week to claim your requested certificate.');
     }
 }
