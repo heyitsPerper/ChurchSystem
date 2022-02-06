@@ -124,8 +124,8 @@
       labels: labels,
       datasets: [{
         label: 'Numbers of Collection every month',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(65,105,225)',
+        borderColor: 'rgb(65,105,225)',
         data: collectionCount,
       }]
     };
@@ -135,8 +135,8 @@
         labels: labels,
       datasets: [{
         label: 'Collection every month',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(65,105,225)',
+        borderColor: 'rgb(65,105,225)',
         data: collectionMonthly,
       }]
     }
