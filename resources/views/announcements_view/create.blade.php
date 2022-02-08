@@ -14,7 +14,7 @@
                     {{session('msg')}}
                 </div>
             @endif
- 
+
             <form method="post" action="{{url('announcements')}}">
                 @csrf
                 <table class="table table-hover">
@@ -23,7 +23,7 @@
                         <td>
                             <input type="text" name="title" class="form-control" value="{{ (old('title')) }}" required>
                         </td>
-                    </tr> 
+                    </tr>
                     <tr>
                         <th>Description</th>
                         <td>
@@ -34,6 +34,21 @@
                         <th>Location</th>
                         <td>
                             <input type="text" name="location" class="form-control" value="{{ (old('location')) }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Purok</th>
+                        <td>
+                            <select name="purok" id="purok" class="form-control">
+                                <option value="" selected disabled>Select Purok</option>
+                                @foreach ($puroks as $purok)
+                                    @if ($purok == old('purok'))
+                                        <option value="{{$purok}}" selected>{{Illuminate\Support\Str::title($purok)}}</option>
+                                    @else
+                                        <option value="{{$purok}}">{{Illuminate\Support\Str::title($purok)}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr>

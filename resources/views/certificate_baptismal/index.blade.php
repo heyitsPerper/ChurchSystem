@@ -20,10 +20,10 @@
                             <i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
                             <a href="{{url('baptismal_info')}}" style="margin-right: 10px;" class="float-right btn btn-sm btn-info shadow-sm">
                             <i class="fas fa-eye fa-sm text-white-50"></i> Show All</a>
-                            <a href="{{route('baptismal.pending', ['status' => 'pending'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm ">
-                                <i class="fa-sm text-white-50"></i>Pendings
+                            <a href="{{route('baptismal.filter', ['status' => 'printing'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm ">
+                                <i class="fa-sm text-white-50"></i>To be Print
                                 <span class="bg-danger badge">
-                                    {{$pendings}}
+                                    {{$printing}}
                                   </span>
                             </a>
                 </div>
@@ -53,12 +53,14 @@
                                     <td>{{$d->baptism_date}}</td>
                                     <td>
                                         <div class="d-flex">
-                                            @if ($d->status == 'pending')
-                                                <form action="{{route('baptismal.accept', ['baptismal' => $d])}}" method="post">
+
+                                            @if ($d->status == 'printing')
+                                                <form action="{{route('baptismal.done', ['baptismal' => $d])}}" method="post">
                                                     @method('PUT')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                                    <button type="submit" class="btn btn-success btn-sm">Done</button>
                                                 </form>
+                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" class="btn btn-secondary btn-sm ms-4">Print</a>
                                             @endif
 
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>

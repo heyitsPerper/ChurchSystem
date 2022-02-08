@@ -20,8 +20,8 @@
                                 <i class="fas fa-plus fa-sm text-white-50"></i> Add New</a>
                             <a href="{{url('confirmation_info')}}" style="margin-right: 10px;" class="float-right btn btn-sm btn-info shadow-sm">
                                 <i class="fas fa-eye fa-sm text-white-50"></i> Show All</a>
-                            <a href="{{route('confirmation.pending', ['status' => 'pending'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm">
-                                <i class="fa-sm text-white-50"></i>Pendings
+                            <a href="{{route('confirmation.pending', ['status' => 'printing'])}}"  style="margin-right: 10px;" class="float-right btn btn-sm btn-primary shadow-sm">
+                                <i class="fa-sm text-white-50"></i>To be print
                                 <span class="bg-danger badge">
                                     {{$pendings}}
                                   </span>
@@ -53,12 +53,13 @@
                                             <td> {{$d->confirmation_date}}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    @if ($d->status == 'pending')
-                                                        <form action="{{route('confirmation.accept', ['confirmation' => $d])}}" method="post">
-                                                            @method('PUT')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                                        </form>
+                                                    @if ($d->status == 'printing')
+                                                    <form action="{{route('confirmation.accept', ['confirmation' => $d])}}" method="post">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success btn-sm">Done</button>
+                                                    </form>
+                                                    <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" class="btn btn-secondary btn-sm">Print</a>
                                                     @endif
 
                                                     <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>

@@ -9,6 +9,11 @@ use Carbon\Carbon;
 
 class ConfirmationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //search child's name
     public function search(Request $request)
     {
@@ -28,8 +33,9 @@ class ConfirmationController extends Controller
             'status' => 'required'
         ]);
 
-        $confirmation = Confirmation::where('status', 'pending')->paginate(10);
-        $pendings = Confirmation::where('status', 'pending')->count();
+
+        $confirmation = Confirmation::where('status', $request->status)->paginate(10);
+        $pendings = Confirmation::where('status', 'printing')->count();
         return view('certificate_confirmation.index', ['child_name' => $confirmation, 'pendings' => $pendings]);
     }
 
@@ -48,7 +54,7 @@ class ConfirmationController extends Controller
     public function index()
     {
         $data = Confirmation::where('status', 'done')->orderBy('id', 'asc')->paginate(5);
-        $pendings = Confirmation::where('status', 'pending')->count();
+        $pendings = Confirmation::where('status', 'printing')->count();
         return view('certificate_confirmation.index', ['data' => $data, 'pendings' => $pendings]);
     }
 
