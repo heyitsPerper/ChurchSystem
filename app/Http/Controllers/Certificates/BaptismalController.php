@@ -9,37 +9,40 @@ use Carbon\Carbon;
 
 class BaptismalController extends Controller
 {
-   //search child's name
-   public function search(Request $request)
-   {
-       $pendings = Baptismal::where('status', 'pending')->count();
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-       if(isset($_GET['query']))
-       {
-           $search_text = $_GET['query'];
-           $child_name = Baptismal::where('child_name', 'LIKE', '%' .$search_text. '%')->paginate(2);
-            return view('certificate_baptismal.index', ['child_name'=>$child_name, 'pendings' => $pendings]);
-       }
-       else
-       {
-            return view('certificate_baptismal.index', ['pendings' => $pendings]);
-       }
-   }
+    //search child's name
+    public function search(Request $request)
+    {
+        $printing = Baptismal::where('status', 'printing')->count();
 
-   // Show only pending baptismal that need to be approve
-   public function filterByPending(Request $request)
-   {
+        if (isset($_GET['query'])) {
+            $search_text = $_GET['query'];
+            $child_name = Baptismal::where('child_name', 'LIKE', '%' . $search_text . '%')->paginate(2);
+            return view('certificate_baptismal.index', ['child_name' => $child_name,  'printing' => $printing]);
+        } else {
+            return view('certificate_baptismal.index', ['printing' => $printing]);
+        }
+    }
+
+    // Show only pending baptismal that need to be approve
+    public function filter(Request $request)
+    {
         $request->validate([
             'status' => 'required'
         ]);
 
 
-        $baptismal = Baptismal::where('status', 'pending')->paginate(10);
-        $pendings = Baptismal::where('status', 'pending')->count();
-        return view('certificate_baptismal.index', ['child_name' => $baptismal, 'pendings' => $pendings]);
-   }
+        $baptismal = Baptismal::where('status', $request->status)->paginate(10);
+        $printing = Baptismal::where('status', 'printing')->count();
+        return view('certificate_baptismal.index', ['child_name' => $baptismal,  'printing' => $printing]);
+    }
 
-    public function acceptPending(Baptismal $baptismal)
+
+    public function donePrinting(Baptismal $baptismal)
     {
         $baptismal->status = 'done';
         $baptismal->update();
@@ -54,9 +57,10 @@ class BaptismalController extends Controller
     //display baptismal info in the table from database
     public function index()
     {
-        $data=Baptismal::where('status', 'done')->orderBy('id','asc')->paginate(2);
-        $pendings = Baptismal::where('status', 'pending')->count();
-        return view('certificate_baptismal.index',['data'=>$data, 'pendings' => $pendings]);
+        $data = Baptismal::where('status', 'done')->orderBy('id', 'asc')->paginate(2);
+        $printing = Baptismal::where('status', 'printing')->count();
+
+        return view('certificate_baptismal.index', ['data' => $data,  'printing' => $printing]);
     }
 
 
@@ -82,22 +86,22 @@ class BaptismalController extends Controller
     {
         //validation rules
         $request->validate([
-            'child_name'=>'required|string|min:8',
-            'birth_date'=>'required|date',
-            'birth_place'=>'required|string',
-            'legitimate_ill'=>'required',
-            'mother_name'=>'required|string|min:8',
-            'father_name'=>'required|string|min:8',
-            'address'=>'required|string',
-            'baptism_date'=>'required|date',
-            'minister'=>'required|string|min:8',
-            'sponsors'=>'required|string|min:8'
+            'child_name' => 'required|string|min:8',
+            'birth_date' => 'required|date',
+            'birth_place' => 'required|string',
+            'legitimate_ill' => 'required',
+            'mother_name' => 'required|string|min:8',
+            'father_name' => 'required|string|min:8',
+            'address' => 'required|string',
+            'baptism_date' => 'required|date',
+            'minister' => 'required|string|min:8',
+            'sponsors' => 'required|string|min:8'
         ]);
 
-            Baptismal::create($request->all());
+        Baptismal::create($request->all());
 
-            return redirect('baptismal_info/create')->with('msg','Data has been submitted');
-        }
+        return redirect('baptismal_info/create')->with('msg', 'Data has been submitted');
+    }
 
     /**
      * Display the specified resource.
@@ -107,8 +111,8 @@ class BaptismalController extends Controller
      */
     public function show($id)
     {
-        $data=Baptismal::find($id);
-        return view('certificate_baptismal.show',['data'=>$data]);
+        $data = Baptismal::find($id);
+        return view('certificate_baptismal.show', ['data' => $data]);
     }
 
     /**
@@ -119,8 +123,8 @@ class BaptismalController extends Controller
      */
     public function edit($id)
     {
-        $data=Baptismal::find($id);
-        return view('certificate_baptismal.edit',['data'=>$data]);
+        $data = Baptismal::find($id);
+        return view('certificate_baptismal.edit', ['data' => $data]);
     }
 
     /**
@@ -134,32 +138,32 @@ class BaptismalController extends Controller
     {
         //validation rules
         $request->validate([
-            'child_name'=>'required|string|min:3',
-            'birth_date'=>'required|date',
-            'birth_place'=>'required|string',
-            'legitimate_ill'=>'required',
-            'mother_name'=>'required|string|min:3',
-            'father_name'=>'required|string|min:3',
-            'address'=>'required|string',
-            'baptism_date'=>'required|date',
-            'minister'=>'required|string|min:3',
-            'sponsors'=>'required|string|min:3'
+            'child_name' => 'required|string|min:3',
+            'birth_date' => 'required|date',
+            'birth_place' => 'required|string',
+            'legitimate_ill' => 'required',
+            'mother_name' => 'required|string|min:3',
+            'father_name' => 'required|string|min:3',
+            'address' => 'required|string',
+            'baptism_date' => 'required|date',
+            'minister' => 'required|string|min:3',
+            'sponsors' => 'required|string|min:3'
         ]);
 
-        $data=Baptismal::find($id);
-        $data->child_name=$request->child_name;
-        $data->birth_date=$request->birth_date;
-        $data->birth_place=$request->birth_place;
-        $data->legitimate_ill=$request->legitimate_ill;
-        $data->mother_name=$request->mother_name;
-        $data->father_name=$request->father_name;
-        $data->address=$request->address;
-        $data->baptism_date=$request->baptism_date;
-        $data->minister=$request->minister;
-        $data->sponsors=$request->sponsors;
+        $data = Baptismal::find($id);
+        $data->child_name = $request->child_name;
+        $data->birth_date = $request->birth_date;
+        $data->birth_place = $request->birth_place;
+        $data->legitimate_ill = $request->legitimate_ill;
+        $data->mother_name = $request->mother_name;
+        $data->father_name = $request->father_name;
+        $data->address = $request->address;
+        $data->baptism_date = $request->baptism_date;
+        $data->minister = $request->minister;
+        $data->sponsors = $request->sponsors;
         $data->save();
 
-        return redirect('baptismal_info/'.$id.'/edit')->with('msg','Data has been updated');
+        return redirect('baptismal_info/' . $id . '/edit')->with('msg', 'Data has been updated');
     }
 
     /**
@@ -170,23 +174,23 @@ class BaptismalController extends Controller
      */
     public function destroy($id)
     {
-        Baptismal::where('id',$id)->delete();
+        Baptismal::where('id', $id)->delete();
         return redirect('baptismal_info');
     }
 
     public function request(Request $request)
     {
         $request->validate([
-            'child_name'=>'required|string|min:8',
-            'birth_date'=>'required|date',
-            'birth_place'=>'required|string',
-            'legitimate_ill'=>'required',
-            'mother_name'=>'required|string|min:8',
-            'father_name'=>'required|string|min:8',
-            'address'=>'required|string',
-            'baptism_date'=>'required|date',
-            'minister'=>'required|string|min:8',
-            'sponsors'=>'required|string|min:8'
+            'child_name' => 'required|string|min:8',
+            'birth_date' => 'required|date',
+            'birth_place' => 'required|string',
+            'legitimate_ill' => 'required',
+            'mother_name' => 'required|string|min:8',
+            'father_name' => 'required|string|min:8',
+            'address' => 'required|string',
+            'baptism_date' => 'required|date',
+            'minister' => 'required|string|min:8',
+            'sponsors' => 'required|string|min:8'
         ]);
 
         Baptismal::create([
@@ -201,12 +205,10 @@ class BaptismalController extends Controller
             'minister' => $request->minister,
             'sponsors' => $request->sponsors
         ]);
-
     }
 
     public function printView(Baptismal $baptismal)
     {
-        return view('certificate_baptismal.print',['baptismal' => $baptismal, 'date' => Carbon::createFromFormat('Y-m-d',$baptismal->baptism_date)->toFormattedDateString()]);
+        return view('certificate_baptismal.print', ['baptismal' => $baptismal, 'date' => Carbon::createFromFormat('Y-m-d', $baptismal->baptism_date)->toFormattedDateString()]);
     }
-
 }

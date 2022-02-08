@@ -41,8 +41,9 @@ Auth::routes();
 // Baptismal Certificate Resource
 Route::get('baptismal_info/{id}/delete', [BaptismalController::class, 'destroy']);
 Route::resource('baptismal_info', BaptismalController::class);
-Route::get('baptismal/filter', [BaptismalController::class, 'filterByPending'])->name('baptismal.pending');
+Route::get('baptismal/filter', [BaptismalController::class, 'filter'])->name('baptismal.filter');
 Route::put('baptismal/accept/{baptismal}', [BaptismalController::class, 'acceptPending'])->name('baptismal.accept');
+Route::put('baptismal/done/{baptismal}', [BaptismalController::class, 'donePrinting'])->name('baptismal.done');
 Route::get('baptismal/search', [BaptismalController::class, 'search'])->name('baptismal.search');
 Route::get('baptismal/{baptismal}', [BaptismalController::class, 'printView'])->name('baptismal.printView');
 

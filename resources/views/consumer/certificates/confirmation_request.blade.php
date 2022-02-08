@@ -27,20 +27,11 @@
                         </div>
                     @enderror
                 </div>
-                <div class="row mb-2">
-                    <div class="form-group col-md-4">
+                <div class="">
+                    <div class="form-group">
                         <label for="baptism_date">Baptism Date</label>
                         <input type="date" name="baptism_date" id="baptism_date" value="{{old('baptism_date')}}" class="form-control">
                         @error('baptism_date')
-                            <div>
-                                <span style="font-size: 15px" class="text-danger">{{$message}}</span>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="baptism_place">Baptism Place</label>
-                        <input type="text" name="baptism_place" id="baptism_place" value="{{old('baptism_place')}}" class="form-control" >
-                        @error('baptism_place')
                             <div>
                                 <span style="font-size: 15px" class="text-danger">{{$message}}</span>
                             </div>
@@ -67,42 +58,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group mb-2">
-                    <label for="address">Address</label>
-                    <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
-                    @error('address')
-                        <div>
-                            <span style="font-size: 15px" class="text-danger">{{$message}}</span>
-                        </div>
-                    @enderror
-                </div>
-                <div class="form-group mb-2">
-                    <label for="confirmation_date">Confirmation Date</label>
-                    <input type="date" name="confirmation_date" id="confirmation_date" class="form-control" value="{{old('confirmation_date')}}">
-                    @error('confirmation_date')
-                        <div>
-                            <span style="font-size: 15px" class="text-danger">{{$message}}</span>
-                        </div>
-                    @enderror
-                </div>
-                <div class="form-group mb-2">
-                    <label for="minister">Minister</label>
-                    <input type="text" name="minister" id="minister" class="form-control" value="{{old('minister')}}">
-                    @error('minister')
-                        <div>
-                            <span style="font-size: 15px" class="text-danger">{{$message}}</span>
-                        </div>
-                    @enderror
-                </div>
-                <div class="form-group mb-2">
-                    <label for="sponsors">Sponsors</label>
-                    <textarea name="sponsors" id="sponsors" cols="30" rows="6" class="form-control" placeholder="Separate sponsor's name with comma">{{old('sponsors')}}</textarea>
-                    @error('sponsors')
-                        <div>
-                            <span style="font-size: 15px" class="text-danger">{{$message}}</span>
-                        </div>
-                    @enderror
-                </div>
+
                 <button type="submit" class="btn btn-primary mt-1">Send Request</button>
             </form>
         </div>

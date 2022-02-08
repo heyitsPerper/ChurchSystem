@@ -15,6 +15,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class ConsumerAuthController extends Controller
 {
@@ -60,8 +61,7 @@ class ConsumerAuthController extends Controller
 
     public function confirmForm()
     {
-        if(!session()->get('code'))
-        {
+        if (!session()->get('code')) {
             return redirect(route('consumer.loginForm'));
         }
         return view('consumer.confirm');
@@ -69,8 +69,7 @@ class ConsumerAuthController extends Controller
 
     public function confirm(Request $request)
     {
-        if(!($request->session()->get('code') ==  $request->code_confirm))
-        {
+        if (!($request->session()->get('code') ==  $request->code_confirm)) {
             return view('consumer.confirm', ['error' => 'Invalid Confirmation Code!']);
         }
 
@@ -88,7 +87,7 @@ class ConsumerAuthController extends Controller
 
         $user = Arr::only($data, ['email', 'password']);
 
-        if(Auth::guard('consumer')->attempt($user)){
+        if (Auth::guard('consumer')->attempt($user)) {
             $request->session()->regenerate();
 
             return redirect(route('consumer.dashboard'));
@@ -102,7 +101,7 @@ class ConsumerAuthController extends Controller
         $currentAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))->get();
         $upcomingAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))->get();
 
-        return view('consumer.dashboard',[
+        return view('consumer.dashboard', [
             'currentAnnouncements' => $currentAnnouncements,
             'upcomingAnnouncements' => $upcomingAnnouncements,
         ]);
@@ -126,6 +125,13 @@ class ConsumerAuthController extends Controller
 
     public function update(ConsumerProfileRequest $request)
     {
-        dd($request->validated());
+        $req  = $request->validated();
+
+        if ($req['password'] == null) {
+            unset($req['password']);
+        }
+
+        Auth::guard('consumer')->user()->update($req);
+        return redirect()->back()->with('success', 'Profile successfully updated!');
     }
 }

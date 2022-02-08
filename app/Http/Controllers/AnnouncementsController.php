@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PurokHelper;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendSms;
 use Illuminate\Http\Request;
@@ -15,31 +16,28 @@ class AnnouncementsController extends Controller
     //search date
     public function search(Request $request)
     {
-        if(isset($_GET['query']))
-        {
-              //getting the current date
-              $current_date=Carbon::now();
+        if (isset($_GET['query'])) {
+            //getting the current date
+            $current_date = Carbon::now();
 
-              //getting date from db
-              $date=new Carbon(request('date'));
+            //getting date from db
+            $date = new Carbon(request('date'));
 
-              //counting date which is equal or greater than the current date
-              $activecountgt = Announcements::whereDate('date', '>',   $current_date)->count();
-              $activecounte = Announcements::whereDate('date', '=',   $current_date)->count();
-              $activecount =  $activecountgt +  $activecounte;
+            //counting date which is equal or greater than the current date
+            $activecountgt = Announcements::whereDate('date', '>',   $current_date)->count();
+            $activecounte = Announcements::whereDate('date', '=',   $current_date)->count();
+            $activecount =  $activecountgt +  $activecounte;
 
-              //counting date which is lesser than the current date
-              $deactivecount = Announcements::whereDate('date', '<',   $current_date)->count();
+            //counting date which is lesser than the current date
+            $deactivecount = Announcements::whereDate('date', '<',   $current_date)->count();
 
-              //count all the rows in the database
-              $totalcount=Announcements::count();
-             $search_text = $_GET['query'];
-             $date = Announcements::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
-             return view('announcements_view.index', ['date'=>$date], compact('totalcount', 'activecount', 'deactivecount'));
-        }
-        else
-        {
-             return view('announcements_view.index');
+            //count all the rows in the database
+            $totalcount = Announcements::count();
+            $search_text = $_GET['query'];
+            $date = Announcements::where('date', 'LIKE', '%' . $search_text . '%')->paginate(5);
+            return view('announcements_view.index', ['date' => $date], compact('totalcount', 'activecount', 'deactivecount'));
+        } else {
+            return view('announcements_view.index');
         }
     }
 
@@ -61,10 +59,10 @@ class AnnouncementsController extends Controller
     public function index()
     {
         //getting the current date
-        $current_date=Carbon::now();
+        $current_date = Carbon::now();
 
         //getting date from db
-        $date=new Carbon(request('date'));
+        $date = new Carbon(request('date'));
 
         //counting date which is equal or greater than the current date
         $activecountgt = Announcements::whereDate('date', '>',   $current_date)->count();
@@ -75,11 +73,11 @@ class AnnouncementsController extends Controller
         $deactivecount = Announcements::whereDate('date', '<',   $current_date)->count();
 
         //count all the rows in the database
-        $totalcount=Announcements::count();
+        $totalcount = Announcements::count();
 
         //get all data
-        $data=Announcements::orderBy('date','desc')->paginate(5);
-        return view('announcements_view.index',['data'=>$data], compact('totalcount', 'activecount', 'deactivecount'));
+        $data = Announcements::orderBy('date', 'desc')->paginate(5);
+        return view('announcements_view.index', ['data' => $data], compact('totalcount', 'activecount', 'deactivecount'));
     }
 
     /**
@@ -89,7 +87,8 @@ class AnnouncementsController extends Controller
      */
     public function create()
     {
-        return view('announcements_view.create');
+        $puroks = PurokHelper::getPurok();
+        return view('announcements_view.create', ['puroks' => $puroks]);
     }
 
     /**
@@ -101,24 +100,26 @@ class AnnouncementsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-            'location'=>'required',
-            'time'=>'required',
-            'date'=>'required'
+            'title' => 'required',
+            'description' => 'required',
+            'location' => 'required',
+            'time' => 'required',
+            'date' => 'required',
+            'purok' => 'required',
         ]);
 
-        $data=new Announcements();
-        $data->title=$request->title;
-        $data->description=$request->description;
-        $data->location=$request->location;
-        $data->time=$request->time;
-        $data->date=$request->date;
+        $data = new Announcements();
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->location = $request->location;
+        $data->time = $request->time;
+        $data->date = $request->date;
+        $data->purok = $request->purok;
         $data->save();
 
         SendSms::dispatch($data);
 
-        return redirect('announcements/create')->with('msg','Data has been submitted');
+        return redirect('announcements/create')->with('msg', 'Data has been submitted');
     }
 
     /**
@@ -129,8 +130,8 @@ class AnnouncementsController extends Controller
      */
     public function show($id)
     {
-        $data=Announcements::find($id);
-        return view('announcements_view.show',['data'=>$data]);
+        $data = Announcements::find($id);
+        return view('announcements_view.show', ['data' => $data]);
     }
 
     /**
@@ -141,8 +142,9 @@ class AnnouncementsController extends Controller
      */
     public function edit($id)
     {
-        $data=Announcements::find($id);
-        return view('announcements_view.edit',['data'=>$data]);
+        $data = Announcements::find($id);
+        $puroks = PurokHelper::getPurok();
+        return view('announcements_view.edit', ['data' => $data, 'puroks' => $puroks]);
     }
 
     /**
@@ -155,23 +157,25 @@ class AnnouncementsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-            'location'=>'required',
-            'time'=>'required',
-            'date'=>'required'
+            'title' => 'required',
+            'description' => 'required',
+            'location' => 'required',
+            'purok' => 'required',
+            'time' => 'required',
+            'date' => 'required'
         ]);
 
 
-        $data=Announcements::find($id);
-        $data->title=$request->title;
-        $data->description=$request->description;
-        $data->location=$request->location;
-        $data->time=$request->time;
-        $data->date=$request->date;
+        $data = Announcements::find($id);
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->location = $request->location;
+        $data->time = $request->time;
+        $data->date = $request->date;
+        $data->purok = $request->purok;
         $data->save();
 
-        return redirect('announcements/'.$id.'/edit')->with('msg','Data has been updated');
+        return redirect('announcements/' . $id . '/edit')->with('msg', 'Data has been updated');
     }
 
     /**
@@ -182,8 +186,7 @@ class AnnouncementsController extends Controller
      */
     public function destroy($id)
     {
-        Announcements::where('id',$id)->delete();
+        Announcements::where('id', $id)->delete();
         return redirect('announcements');
     }
-
 }

@@ -38,6 +38,21 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Purok</th>
+                        <td>
+                            <select name="purok" id="purok" class="form-control">
+                                <option value="" selected disabled>Select Purok</option>
+                                @foreach ($puroks as $purok)
+                                    @if ($purok == $data->purok)
+                                        <option value="{{$purok}}" selected>{{Illuminate\Support\Str::title($purok)}}</option>
+                                    @else
+                                        <option value="{{$purok}}">{{Illuminate\Support\Str::title($purok)}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Time</th>
                         <td>
                             <input type="time" value="{{$data->time}}" name="time" class="form-control" required>
@@ -46,7 +61,7 @@
                     <tr>
                         <th>Date</th>
                         <td>
-                            <input type="date" value="{{$data->date}}" name="date" class="form-control" required>
+                            <input type="date" value="{{$data->date->format('Y-m-d')}}" name="date" class="form-control" required>
                         </td>
                     </tr>
                     <tr>

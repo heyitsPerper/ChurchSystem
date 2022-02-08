@@ -34,18 +34,21 @@ class SendSms implements ShouldQueue
      */
     public function handle()
     {
-        $consumers = Consumer::where('purok', $this->announcement->location)->get();
+        $consumers = Consumer::where('purok', $this->announcement->purok)->get();
+
+        if ($this->announcement->purok == "all") {
+            $consumers = Consumer::all();
+        }
 
         $title = $this->announcement->title;
         $description = $this->announcement->description;
 
-        foreach($consumers as $consumer)
-        {
+        foreach ($consumers as $consumer) {
             Nexmo::message()->send([
-                    'to' => $consumer['contact_number'],
-                    'from' => 'Church of Hilongos',
-                    'text' => "New Announcement has been posted.\n\nTitle: $title\nDescription: $description.\n\nFor more information, kindly login to your account.\n\n"
-                ]);
+                'to' => $consumer['contact_number'],
+                'from' => 'Church of Hilongos',
+                'text' => "New Announcement has been posted.\n\nTitle: $title\nDescription: $description.\n\nFor more information, kindly login to your account.\n"
+            ]);
         }
     }
 }

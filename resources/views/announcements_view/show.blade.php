@@ -17,15 +17,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Description</th>  
+                    <th>Description</th>
                     <td>
                         {{$data->description}}
                     </td>
                 </tr>
-                <tr>   
+                <tr>
                     <th>Location</th>
                     <td>
                         {{$data->location}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Purok</th>
+                    <td>
+                        {{$data->purok}}
                     </td>
                 </tr>
                 <tr>
@@ -37,10 +43,10 @@
                 <tr>
                     <th>Date</th>
                     <td>
-                        {{$data->date}}
+                        {{$data->date->format('m-d-Y')}}
                     </td>
                 </tr>
-            </table> 
+            </table>
         </div>
     </div>
 </div>

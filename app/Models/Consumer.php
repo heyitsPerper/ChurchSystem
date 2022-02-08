@@ -22,7 +22,8 @@ class Consumer extends Authenticatable
 
     public function fullName()
     {
-        return Str::title($this->firstname) ." ". Str::title($this->lastname);
+        return $this->firstname . " " . $this->lastname;
+        // return Str::title($this->firstname) ." ". Str::title($this->lastname);
     }
 
     public function prettyPurok()

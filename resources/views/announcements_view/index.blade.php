@@ -7,7 +7,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Announcement Analysis</h1>
     </div>
- 
+
         <!-- Content Row -->
         <div class="row">
 
@@ -40,7 +40,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $activecount }}</div>
                             </div>
                             <div class="col-auto">
-                            <i class="fas fa-check-circle fa-2x text-gray-300"></i> 
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -71,14 +71,14 @@
     <h1 class="h3 mb-0 text-gray-800">List of Announcements</h1>
         <br>
             <div class="card shadow mb-4">
-                <div class="card-header py-3"> 
+                <div class="card-header py-3">
                     <form action="{{ route ('announcement.search')}}" method="GET" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group" >
                             <input type="date" name="query" placeholder="Search date here..." class="form-control bg-light border-0 small" style="width: 17rem;, font-size: 0.85rem;, height: auto;">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-sm btn-primary shadow-sm">
                                     <i class="fas fa-search"></i>
-                                </button> 
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -86,8 +86,8 @@
                             <i class="fas fa-plus fa-sm text-white-50"></i> Add Announcement</a>
                         <a href="{{url('announcements')}}" style="margin-right: 10px;" class="float-right btn btn-sm btn-info shadow-sm">
                             <i class="fas fa-eye fa-sm text-white-50"></i> Show All</a>
-                </div>  
-                
+                </div>
+
                 <div class="card-body table-responsive">
                     <!-- Display specific informations depende kung unsay gisearch -->
                     @if(isset($date))
@@ -98,13 +98,13 @@
                                     <th>Date</th>
                                     <th width="21%">Action</th>
                                 </tr>
-                            </thead> 
+                            </thead>
                             <tbody>
                             @if(count($date)>0)
-                                @foreach($date as $d) 
-                                <tr> 
+                                @foreach($date as $d)
+                                <tr>
                                     <td> {{$d->title}}</td>
-                                    <td> {{$d->date}}</td>
+                                    <td> {{$d->date}} {{$d->time}}</td>
                                     <td>
                                         <a href="{{url('announcements/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                         <a href="{{url('announcements/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>
@@ -112,7 +112,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            @else 
+                            @else
                                 <div class="alert alert-warning">
                                     No result found!
                                 </div>
@@ -131,13 +131,13 @@
                                     <th>Date</th>
                                     <th width="21%">Action</th>
                                 </tr>
-                            </thead> 
+                            </thead>
                             <tbody>
                             @if($data)
                                 @foreach($data as $d)
-                                    <tr> 
+                                    <tr>
                                         <td> {{$d->title}}</td>
-                                        <td> {{$d->date}}</td>
+                                        <td> {{Carbon\Carbon::parse($d->date)->format('m-d-Y')}}</td>
                                         <td>
                                             <a href="{{url('announcements/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
                                             <a href="{{url('announcements/'.$d->id.'/edit')}}" class="btn btn-info btn-sm">Update</a>

@@ -18,6 +18,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('location');
+            $table->string('purok');
             $table->time('time');
             $table->date('date');
         });
