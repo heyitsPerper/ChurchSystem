@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\PurokHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConsumerProfileRequest;
 use App\Http\Requests\ConsumerSignUpRequest;
@@ -98,8 +99,14 @@ class ConsumerAuthController extends Controller
 
     public function dashboard()
     {
-        $currentAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))->get();
-        $upcomingAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))->get();
+        $currentAnnouncements = Announcements::where('purok', 'all')
+            ->orWhere('purok', auth()->guard('consumer')->user()->purok)
+            ->where('date', now()->format('Y-m-d'))->get();
+
+        $upcomingAnnouncements = Announcements::where('purok', 'all')
+            ->orWhere('purok', auth()->guard('consumer')->user()->purok)
+            ->where('date', '>', now()->format('Y-m-d'))->get();
+
 
         return view('consumer.dashboard', [
             'currentAnnouncements' => $currentAnnouncements,
@@ -120,7 +127,8 @@ class ConsumerAuthController extends Controller
 
     public function profile(Request $request)
     {
-        return view('consumer.profile');
+        $puroks = PurokHelper::getPurok();
+        return view('consumer.profile', ['puroks' => $puroks]);
     }
 
     public function update(ConsumerProfileRequest $request)
