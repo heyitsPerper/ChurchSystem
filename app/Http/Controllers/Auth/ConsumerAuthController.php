@@ -99,13 +99,14 @@ class ConsumerAuthController extends Controller
 
     public function dashboard()
     {
-        $currentAnnouncements = Announcements::where('purok', 'all')
-            ->orWhere('purok', auth()->guard('consumer')->user()->purok)
-            ->where('date', now()->format('Y-m-d'))->get();
+        $currentAnnouncements = Announcements::where('date', now()->format('Y-m-d'))->where('purok', 'all')
+            ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))
+            ->get();
 
-        $upcomingAnnouncements = Announcements::where('purok', 'all')
-            ->orWhere('purok', auth()->guard('consumer')->user()->purok)
-            ->where('date', '>', now()->format('Y-m-d'))->get();
+        $upcomingAnnouncements = Announcements::where('date', '>', now()->format('Y-m-d'))->where('purok', 'all')
+            ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))
+            ->get();
+
 
 
         return view('consumer.dashboard', [

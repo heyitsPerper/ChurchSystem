@@ -120,13 +120,14 @@ Route::get('report/{id}/delete', [ReportController::class, 'destroy']);
 Route::resource('report', ReportController::class);
 Route::get('/bar-chart', [ReportController::class, 'barChart']);
 
-
-Route::get('consumer/login', [ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
-Route::post('consumer/login', [ConsumerAuthController::class, 'login'])->name('consumer.login');
-Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
-Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
-Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
-Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+Route::middleware(['guest'])->group(function () {
+    Route::get('consumer/login', [ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
+    Route::post('consumer/login', [ConsumerAuthController::class, 'login'])->name('consumer.login');
+    Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
+    Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
+    Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
+    Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+});
 
 
 Route::prefix('consumer')->middleware('isConsumer')->group(function () {
