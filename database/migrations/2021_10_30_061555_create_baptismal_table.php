@@ -23,6 +23,7 @@ class CreateBaptismalTable extends Migration
             $table->string('father_name');
             $table->string('address');
             $table->date('baptism_date');
+            $table->time('time');
             $table->string('minister');
             $table->string('sponsors');
             $table->string('status')->default('done');

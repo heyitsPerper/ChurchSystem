@@ -14,7 +14,7 @@
                     {{session('msg')}}
                 </div>
             @endif
-            
+
             <form method="post" action="{{url('confirmation_info')}}">
                 @csrf
                 <table class="table table-hover">
@@ -55,9 +55,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Date Confirmed</th>
+                        <th>Date of Confirmation</th>
                         <td>
                             <input type="date" name="confirmation_date" class="form-control" value="{{ (old('confirmation_date')) }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Time of Confirmation</th>
+                        <td>
+                            <input type="time" name="time" class="form-control" value="{{ (old('time')) }}" required>
                         </td>
                     </tr>
                     <tr>

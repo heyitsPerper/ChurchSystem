@@ -14,6 +14,7 @@ use App\Http\Controllers\ConsumerRequestCertificateController;
 use App\Http\Controllers\Officials_Church\Church_OfficialsController;
 use App\Http\Controllers\Officials_Chapel\Chapel_OfficialsController;
 use App\Http\Controllers\Priest_Sched\Priest_SchedController;
+use App\Http\Controllers\Registered_Users\Registered_UsersController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
@@ -107,6 +108,10 @@ Route::get('priest_sched/{id}/delete', [Priest_SchedController::class, 'destroy'
 Route::resource('priest_sched', Priest_SchedController::class);
 Route::get('sched/search', [Priest_SchedController::class, 'search'])->name('sched.search');
 
+// Registered Users Resource
+//Route::get('registeredusers/{id}/delete', [Registered_UsersController::class, 'destroy']);
+Route::resource('registeredusers', Registered_UsersController::class);
+//Route::get('registeredusers/search', [Registered_UsersController::class, 'search'])->name('sched.search');
 
 //-------------------------FERLYN CODES-------------------------
 // Calendar Resource
@@ -120,31 +125,36 @@ Route::get('report/{id}/delete', [ReportController::class, 'destroy']);
 Route::resource('report', ReportController::class);
 Route::get('/bar-chart', [ReportController::class, 'barChart']);
 
+
+//-------------------------CONSUMERS/USERS RESOURCE-------------------------
+// Consumer/People Auth Resource
 Route::middleware(['guest'])->group(function () {
-    Route::get('consumer/login', [ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
-    Route::post('consumer/login', [ConsumerAuthController::class, 'login'])->name('consumer.login');
-    Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
-    Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
-    Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
-    Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+Route::get('consumer/login', [ConsumerAuthController::class, 'loginForm'])->name('consumer.loginForm');
+Route::post('consumer/login', [ConsumerAuthController::class, 'login'])->name('consumer.login');
+Route::get('consumer/signup', [ConsumerAuthController::class, 'signup'])->name('consumer.signup');
+Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->name('consumer.register');
 });
 
-    
+Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
+Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+
+// Dashboard, Officers, Priest Sched, Request Certificate Resource
 Route::prefix('consumer')->middleware('isConsumer')->group(function () {
-    Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
-    Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
-    Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
+Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
+Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
+Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
+Route::get('/request/baptismal', [ConsumerPagesController::class, 'requestBaptismalPage'])->name('consumer.request_baptismal_page');
+Route::get('request/confirmation', [ConsumerPagesController::class, 'requestConfirmationPage'])->name('consumer.request_confirmation_page');
 
-    Route::get('/request/baptismal', [ConsumerPagesController::class, 'requestBaptismalPage'])->name('consumer.request_baptismal_page');
-    Route::get('request/confirmation', [ConsumerPagesController::class, 'requestConfirmationPage'])->name('consumer.request_confirmation_page');
+// Request Certificate Resource
+Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
+Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
 
-    Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
-    Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
+// Consumer Profile, Logout Resource
+Route::get('/profile', [ConsumerAuthController::class, 'profile'])->name('consumer.profile');
+Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
+Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 
-    Route::get('/profile', [ConsumerAuthController::class, 'profile'])->name('consumer.profile');
-    Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
-    Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 });
 
 
-// Route::get('/sms', [SmsController::class, 'index']);

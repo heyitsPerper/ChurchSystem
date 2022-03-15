@@ -39,7 +39,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date of Baptism</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,7 +90,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date of Baptism</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

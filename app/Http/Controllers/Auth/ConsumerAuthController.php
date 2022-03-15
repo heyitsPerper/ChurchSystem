@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\PurokHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConsumerProfileRequest;
 use App\Http\Requests\ConsumerSignUpRequest;
@@ -11,6 +10,7 @@ use App\Models\Announcements;
 use App\Models\ChapelOfficials;
 use App\Models\ChurchOfficials;
 use App\Models\Consumer;
+use App\Helpers\PurokHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -100,14 +100,12 @@ class ConsumerAuthController extends Controller
     public function dashboard()
     {
         $currentAnnouncements = Announcements::where('date', now()->format('Y-m-d'))->where('purok', 'all')
-            ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))
-            ->get();
+        ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))
+        ->get();
 
         $upcomingAnnouncements = Announcements::where('date', '>', now()->format('Y-m-d'))->where('purok', 'all')
-            ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))
-            ->get();
-
-
+        ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))
+        ->get();
 
         return view('consumer.dashboard', [
             'currentAnnouncements' => $currentAnnouncements,

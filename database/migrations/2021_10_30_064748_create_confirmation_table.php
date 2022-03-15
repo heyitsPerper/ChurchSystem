@@ -22,6 +22,7 @@ class CreateConfirmationTable extends Migration
             $table->string('father_name');
             $table->string('address');
             $table->date('confirmation_date');
+            $table->time('time');
             $table->string('minister');
             $table->string('sponsors');
             $table->string('status')->default('done');

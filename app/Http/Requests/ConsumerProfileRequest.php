@@ -27,9 +27,9 @@ class ConsumerProfileRequest extends FormRequest
             'firstname' => 'required',
             'lastname' => 'required',
             'contact_number' => 'required|min:12|numeric',
-            'purok' => 'required',
             'email' => 'required_if:email,' . $this->email . '|email',
-            'password' => 'confirmed|required_if:old_password,' . $this->old_password
+            'password' => 'confirmed|required_if:old_password,' . $this->old_password,
+            'purok' => 'required',
         ];
     }
 }

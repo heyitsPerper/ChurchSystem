@@ -10870,19 +10870,31 @@ a:focus {
 }
 
 .bg-login-image {
+<<<<<<< HEAD
   background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+=======
+  background: url("../img/login.jpg"); 
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
   background-position: center;
   background-size: cover;
 }
 
 .bg-register-image {
+<<<<<<< HEAD
   background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
+=======
+  background: url("../img/login.jpg");
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
   background-position: center;
   background-size: cover;
 }
 
 .bg-password-image {
+<<<<<<< HEAD
   background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+=======
+  background: url("../img/login.jpg");
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
   background-position: center;
   background-size: cover;
 }

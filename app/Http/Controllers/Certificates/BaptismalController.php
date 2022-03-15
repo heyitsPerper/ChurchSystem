@@ -94,6 +94,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:8',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:8',
             'sponsors' => 'required|string|min:8'
         ]);
@@ -146,6 +147,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:3',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:3',
             'sponsors' => 'required|string|min:3'
         ]);
@@ -159,6 +161,7 @@ class BaptismalController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->baptism_date = $request->baptism_date;
+        $data->time = $request->time;
         $data->minister = $request->minister;
         $data->sponsors = $request->sponsors;
         $data->save();
@@ -189,6 +192,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:8',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:8',
             'sponsors' => 'required|string|min:8'
         ]);
@@ -202,6 +206,7 @@ class BaptismalController extends Controller
             'father_name' => $request->father_name,
             'address' => $request->address,
             'baptism_date' => $request->baptism_date,
+            'time' => $request->time,
             'minister' => $request->minister,
             'sponsors' => $request->sponsors
         ]);

@@ -48,11 +48,24 @@
                     </td>
                 </tr>
                 <tr>
+<<<<<<< HEAD
                     <th>Date Confirmed</th> 
+=======
+                    <th>Date of Confirmation</th> 
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
                     <td>
                         {{$data->confirmation_date}}
                     </td>
                 </tr>
+<<<<<<< HEAD
+=======
+                <tr>
+                    <th>Time of Confirmation</th> 
+                    <td>
+                        {{$data->time}}
+                    </td>
+                </tr>
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
                 <tr> 
                     <th>Minister</th>    
                     <td>

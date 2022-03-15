@@ -56,12 +56,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Date Confirmed</th>
+                        <th>Date of Confirmation</th>
                         <td>
                             <input type="date" value="{{$data->confirmation_date}}" name="confirmation_date" class="form-control"  required>
                         </td>
                     </tr>
-                    <tr> 
+                    <tr>
+                        <th>Time of Confirmation</th>
+                        <td>
+                            <input type="time" value="{{$data->time}}" name="time" class="form-control"  required>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Minister</th>
                         <td>
                             <input type="text" value="{{$data->minister}}" name="minister" class="form-control"  required>

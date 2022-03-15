@@ -72,7 +72,11 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                     <li><a href="{{route('consumer.profile')}}" class="dropdown-item">Profile</a></li>
                     <li>
+<<<<<<< HEAD
                         <form action="{{route('consumer.logout')}}" method="post">
+=======
+                        <form action="{{route('logout')}}" method="post">
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
                             @csrf
                             <button type="submit" class="dropdown-item">Logout</button>
                         </form>

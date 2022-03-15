@@ -7,16 +7,16 @@ class PurokHelper
     static function getPurok()
     {
         return [
-            'all',
-            'purok 1',
-            'purok 2',
-            'purok 3',
-            'purok 4',
-            'purok 5',
-            'purok 6',
-            'purok 7',
-            'purok 8',
-            'purok 9'
+            'All',
+            'Purok 1',
+            'Purok 2',
+            'Purok 3',
+            'Purok 4',
+            'Purok 5',
+            'Purok 6',
+            'Purok 7',
+            'Purok 8',
+            'Purok 9'
         ];
     }
 }

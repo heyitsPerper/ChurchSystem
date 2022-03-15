@@ -38,8 +38,8 @@
                                     <th>Date of Baptism</th>
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
-                                    <th>Date Confirmed</th>
-                                    <th width="21%">Action</th>
+                                    <th>Date of Confirmation</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +89,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date Confirmed</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

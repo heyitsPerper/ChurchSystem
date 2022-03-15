@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ConsumerSeeder::class
+            ConsumerSeeder::class,
+            ChurchOfficialSeeder::class
         ]);
     }
 }

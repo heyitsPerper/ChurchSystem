@@ -84,6 +84,7 @@ class ConfirmationController extends Controller
             'father_name' => 'required',
             'address' => 'required',
             'confirmation_date' => 'required',
+            'time' => 'required',
             'minister' => 'required',
             'sponsors' => 'required'
         ]);
@@ -96,9 +97,10 @@ class ConfirmationController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->confirmation_date = $request->confirmation_date;
-        $data->minister = $request->minister;
+<<<<<<< HEAD
+=======
+        $data->time = $request->time;
         $data->sponsors = $request->sponsors;
-        $data->save();
 
         return redirect('confirmation_info/create')->with('msg', 'Data has been submitted');
     }
@@ -144,6 +146,10 @@ class ConfirmationController extends Controller
             'father_name' => 'required',
             'address' => 'required',
             'confirmationdate' => 'required',
+<<<<<<< HEAD
+=======
+            'time' => 'required',
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
             'minister' => 'required',
             'sponsors' => 'required'
         ]);
@@ -156,6 +162,10 @@ class ConfirmationController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->confirmationdate = $request->confirmationdate;
+<<<<<<< HEAD
+=======
+        $data->time = $request->time;
+>>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
         $data->minister = $request->minister;
         $data->sponsors = $request->sponsors;
         $data->save();

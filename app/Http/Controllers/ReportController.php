@@ -52,9 +52,6 @@ class ReportController extends Controller
             $monthCount[] = count($values);
         }
 
-
-
-
         return view('reports.index', ['overall_total' => $overall_total, 'data' => $data, 'months' => $months, 'monthCount' => $monthCount, 'monthlyCollection' => $array_data_collection, 'thisMonth' => $thisMonthTotal]);
     }
 }

@@ -2,7 +2,10 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/registration.css')}}">
-<div class="title">Login</div>
+<div class="title">Login
+<a onclick="return confirm('Are you sure to leave this page?')" href="/" class="float-end btn-close btn-sm" aria-label="Close"></a>
+</div>
+
     <div class="content">
         <form action="{{route('consumer.login')}}" method="POST">
             @csrf
