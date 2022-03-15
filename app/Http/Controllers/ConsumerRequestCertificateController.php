@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Baptismal;
+use App\Models\CertificateRequest;
 use App\Models\Confirmation;
 use Illuminate\Http\Request;
 
@@ -43,6 +44,11 @@ class ConsumerRequestCertificateController extends Controller
         $result->status = 'printing';
         $result->save();
 
+        $certificateRequest = CertificateRequest::create([
+            'consumerId' => auth()->guard('consumer')->user()->id,
+            'request_type' => 'baptismal'
+        ]);
+
         return redirect()->back()->with('message', 'Successfully send request for baptismal certificate! Kindly visit the church next week to claim your requested certificate.');
     }
 
@@ -66,6 +72,11 @@ class ConsumerRequestCertificateController extends Controller
 
         $result->status = 'printing';
         $result->save();
+
+        $certificateRequest = CertificateRequest::create([
+            'consumerId' => auth()->guard('consumer')->user()->id,
+            'request_type' => 'confirmation'
+        ]);
 
         return redirect()->back()->with('success', 'Successfully send request for confirmation certificate! Kindly visit the church next week to claim your requested certificate.');
     }

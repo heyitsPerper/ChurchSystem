@@ -129,6 +129,7 @@ class ConsumerAuthController extends Controller
     public function profile(Request $request)
     {
         $puroks = PurokHelper::getPurok();
+        $puroks = array_except($puroks, 0);
         return view('consumer.profile', ['puroks' => $puroks]);
     }
 

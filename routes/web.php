@@ -129,7 +129,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
 });
 
-
+    
 Route::prefix('consumer')->middleware('isConsumer')->group(function () {
     Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
     Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
