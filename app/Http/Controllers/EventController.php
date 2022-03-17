@@ -9,6 +9,11 @@ use LaravelFullCalendar\Facades\Calendar;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,24 +21,28 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events=Event::all();
-        $event=[];
-        
-        foreach($events as $row) {
-            // $enddate=$row->end_date."24:00:00";
-            $event[]=\Calendar::event(
-                $row->title,
-                false,
-                new \DateTime($row->start_date),
-                new \DateTime($row->end_date),
-                $row->id,
-                [
-                    'color'=>$row->color
-                ]
-                );
-        }
-        $calendar=\Calendar::addEvents($event);
-        return view('calendar.eventpage', compact('events', 'calendar'));
+        // $events=Event::all();
+        // $event=[];
+
+        // foreach($events as $row) {
+        //     // $enddate=$row->end_date."24:00:00";
+        //     $event[]=\Calendar::event(
+        //         $row->title,
+        //         false,
+        //         new \DateTime($row->start_date),
+        //         new \DateTime($row->end_date),
+        //         $row->id,
+        //         [
+        //             'color'=>$row->color
+        //         ]
+        //         );
+        // }
+        // $calendar=\Calendar::addEvents($event);
+        // return view('calendar.eventpage', compact('events', 'calendar'));
+
+        $events = Event::all();
+        $today = now()->format('Y-m-d');
+        return view('calendar.index', ['events' => $events, 'today' => $today]);
     }
 
     /**
@@ -77,7 +86,7 @@ class EventController extends Controller
          return redirect('events')->with('success', 'Event Added');
     }
 
-    /** 
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

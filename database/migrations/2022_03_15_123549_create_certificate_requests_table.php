@@ -15,6 +15,7 @@ class CreateCertificateRequestsTable extends Migration
     {
         Schema::create('certificate_requests', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('request_id');
             $table->foreignId('consumerId')->references('id')->on('consumers')->onDelete('cascade');
             $table->string('request_type');
             $table->timestamps();

@@ -140,20 +140,20 @@ Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->nam
 
 // Dashboard, Officers, Priest Sched, Request Certificate Resource
 Route::prefix('consumer')->middleware('isConsumer')->group(function () {
-Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
-Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
-Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
-Route::get('/request/baptismal', [ConsumerPagesController::class, 'requestBaptismalPage'])->name('consumer.request_baptismal_page');
-Route::get('request/confirmation', [ConsumerPagesController::class, 'requestConfirmationPage'])->name('consumer.request_confirmation_page');
+    Route::get('/dashboard', [ConsumerAuthController::class, 'dashboard'])->name('consumer.dashboard');
+    Route::get('/priest/schedule', [ConsumerPagesController::class, 'priestSchedule'])->name('consumer.priest_sched');
+    Route::get('/officers/list', [ConsumerPagesController::class, 'officers'])->name('consumer.officers_list');
+    Route::get('/request/baptismal', [ConsumerPagesController::class, 'requestBaptismalPage'])->name('consumer.request_baptismal_page');
+    Route::get('request/confirmation', [ConsumerPagesController::class, 'requestConfirmationPage'])->name('consumer.request_confirmation_page');
 
-// Request Certificate Resource
-Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
-Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
+    // Request Certificate Resource
+    Route::post('/request/baptismal', [ConsumerRequestCertificateController::class, 'requestBaptismal'])->name('consumer.request_baptismal');
+    Route::post('/request/confirmation', [ConsumerRequestCertificateController::class, 'requestConfirmation'])->name('consumer.request_confirmation');
 
-// Consumer Profile, Logout Resource
-Route::get('/profile', [ConsumerAuthController::class, 'profile'])->name('consumer.profile');
-Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
-Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
+    // Consumer Profile, Logout Resource
+    Route::get('/profile', [ConsumerAuthController::class, 'profile'])->name('consumer.profile');
+    Route::put('profile', [ConsumerAuthController::class, 'update'])->name('consumer.profile_update');
+    Route::post('/logout', [ConsumerAuthController::class, 'logout'])->name('consumer.logout');
 
 });
 

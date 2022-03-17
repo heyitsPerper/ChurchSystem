@@ -45,6 +45,7 @@ class ConsumerRequestCertificateController extends Controller
         $result->save();
 
         $certificateRequest = CertificateRequest::create([
+            'request_id' => $result->id,
             'consumerId' => auth()->guard('consumer')->user()->id,
             'request_type' => 'baptismal'
         ]);
@@ -74,6 +75,7 @@ class ConsumerRequestCertificateController extends Controller
         $result->save();
 
         $certificateRequest = CertificateRequest::create([
+            'request_id' => $result->id,
             'consumerId' => auth()->guard('consumer')->user()->id,
             'request_type' => 'confirmation'
         ]);

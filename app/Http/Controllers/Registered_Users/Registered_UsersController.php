@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Registered_Users;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\Registered_Users;
 use App\Models\Consumer;
@@ -10,19 +12,19 @@ use App\Models\Consumer;
 class Registered_UsersController extends Controller
 {
     //search date
-    // public function search(Request $request)  
+    // public function search(Request $request)
     // {
     //     if(isset($_GET['query']))
     //     {
     //          $search_text = $_GET['query'];
     //          $date = Registered_Users::where('purok', 'LIKE', '%' .$search_text. '%')->paginate(5);
     //          return view('priest_schedule.index', ['date'=>$date]);
-    //     }   
-    //     else                                                                               
+    //     }
+    //     else
     //     {
     //          return view('priest_schedule.index');
     //     }
-    // } 
+    // }
 
     /**
      * Display a listing of the resource.
@@ -30,8 +32,9 @@ class Registered_UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Registered_Users::orderBy('purok','asc')->paginate(5);
+
         return view('registeredusers.index',['data'=>$data]);
     }
 
@@ -80,7 +83,7 @@ class Registered_UsersController extends Controller
     // {
     //     $data=Priest_Sched::find($id);
     //     return view('priest_schedule.edit',['data'=>$data]);
-  
+
     // }
 
 //     /**
@@ -93,7 +96,7 @@ class Registered_UsersController extends Controller
 //     public function update(Request $request, $id)
 //     {
 //        $input = $request->all();
-       
+
 //        $validator = $request->validate([
 //              'date'=>'required',
 //              'time_in'=>'required',

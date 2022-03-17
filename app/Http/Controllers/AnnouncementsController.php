@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ChildHelper;
 use App\Helpers\PurokHelper;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendSms;
 use Illuminate\Http\Request;
 use App\Models\Announcements;
+use App\Models\Baptismal;
+use App\Models\CertificateRequest;
+use App\Models\Confirmation;
 use App\Models\Consumer;
 use Carbon\Carbon;
 use Nexmo\Laravel\Facade\Nexmo;
@@ -77,6 +81,7 @@ class AnnouncementsController extends Controller
 
         //get all data
         $data = Announcements::orderBy('date', 'desc')->paginate(5);
+
         return view('announcements_view.index', ['data' => $data], compact('totalcount', 'activecount', 'deactivecount'));
     }
 

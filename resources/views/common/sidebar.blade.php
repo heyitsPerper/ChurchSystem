@@ -90,8 +90,6 @@
                 </a>
             </li>
 
-<<<<<<< HEAD
-=======
             <!-- Nav Item - Registered User
             <li class="nav-item">
                 <a class="nav-link" href="{{url('registeredusers')}}">
@@ -99,7 +97,6 @@
                     <span>Registered Users</span>
                 </a>
             </li> -->
->>>>>>> 6202905b7f7b1711839b42fe597cddcf35ed4340
 
             <!-- Divider -->
             <hr class="sidebar-divider">

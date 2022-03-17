@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Certificates;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baptismal;
+use App\Models\CertificateRequest;
 use Carbon\Carbon;
 
 class BaptismalController extends Controller
@@ -46,6 +48,10 @@ class BaptismalController extends Controller
     {
         $baptismal->status = 'done';
         $baptismal->update();
+
+        $certificateRequest = CertificateRequest::where('request_id',$baptismal->id)->where('request_type', 'baptismal');
+        $certificateRequest->delete();
+
         return redirect()->back();
     }
 
@@ -113,7 +119,9 @@ class BaptismalController extends Controller
     public function show($id)
     {
         $data = Baptismal::find($id);
-        return view('certificate_baptismal.show', ['data' => $data]);
+        $notifications = CertificateRequest::all();
+        $childName = ChildHelper::getChildNames($notifications);
+        return view('certificate_baptismal.show', ['data' => $data, 'notifications' => $notifications, 'childNames' => $childName]);
     }
 
     /**

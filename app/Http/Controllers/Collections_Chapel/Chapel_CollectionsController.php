@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\Collections_Chapel;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\ChapelCollections;
 
 class Chapel_CollectionsController extends Controller
 {
    //search celebration date
-   public function search(Request $request)  
+   public function search(Request $request)
    {
        if(isset($_GET['query']))
        {
             $search_text = $_GET['query'];
             $date = ChapelCollections::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
             return view('collections_chapel.index', ['date'=>$date]);
-       }   
+       }
        else
        {
             return view('collections_chapel.index');
        }
-   } 
+   }
 
     /**
      * Display a listing of the resource.
@@ -29,7 +31,7 @@ class Chapel_CollectionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=ChapelCollections::orderBy('date','asc')->paginate(5);
         return view('collections_chapel.index',['data'=>$data]);
     }

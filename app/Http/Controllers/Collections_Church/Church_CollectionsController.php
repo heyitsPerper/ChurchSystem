@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers\Collections_Church;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\ChurchCollections;
 use Carbon\Carbon;
 
 class Church_CollectionsController extends Controller
-{ 
+{
    //search celebration date
-   public function search(Request $request)  
+   public function search(Request $request)
    {
        if(isset($_GET['query']))
        {
             $search_text = $_GET['query'];
             $date = ChurchCollections::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
             return view('collections_church.index', ['date'=>$date]);
-       }   
+       }
        else
        {
             return view('collections_church.index');
        }
-   } 
- 
+   }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response 
+     * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=ChurchCollections::orderBy('date','asc')->paginate(5);
+
         return view('collections_church.index',['data'=>$data]);
     }
 
@@ -129,5 +132,5 @@ class Church_CollectionsController extends Controller
 
 
 
-   
+
 }

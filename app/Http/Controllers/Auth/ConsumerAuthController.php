@@ -121,7 +121,7 @@ class ConsumerAuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect(route('consumer.loginForm'));
+        return redirect('/');
     }
 
     public function profile(Request $request)

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Certificates;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\Marriage;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 
 class MarriageController extends Controller
 {
     //search husband or wife name
-    public function search(Request $request) 
+    public function search(Request $request)
     {
         if(isset($_GET['query']))
         {
@@ -18,19 +20,19 @@ class MarriageController extends Controller
              $hhusbandname = Marriage::where('hhusbandname', 'LIKE', '%' .$search_text. '%')->paginate(5);
              $wwifename = Marriage::where('wwifename', 'LIKE', '%' .$search_text. '%')->paginate(5);
              return view('certificate_marriage.index', ['hhusbandname'=>$hhusbandname, 'wwifename'=>$wwifename ]);
-        }   
+        }
         else
         {
              return view('certificate_marriage.index');
         }
-    } 
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Marriage::orderBy('id','asc')->paginate(5);
         return view('certificate_marriage.index',['data'=>$data]);
     }
@@ -86,7 +88,7 @@ class MarriageController extends Controller
             'wwitnessresidence'=>'required',
             'marriagecontractdate'=>'required|date',
             'minister'=>'required'
-            
+
         ]);
         //getting the current date
         $current_date=Carbon::now();
@@ -285,4 +287,3 @@ class MarriageController extends Controller
     }
 
 }
- 

@@ -9,13 +9,16 @@ class CertificateRequest extends Model
 {
     use HasFactory;
 
+    protected $table ='certificate_requests';
+
     protected $fillable =[
+        'request_id',
         'consumerId',
         'request_type'
     ];
 
     public function consumer()
     {
-        return $this->belongsTo(Consumer::class);
+        return $this->belongsTo(Consumer::class, 'consumerId', 'id');
     }
 }
