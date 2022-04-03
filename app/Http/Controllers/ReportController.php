@@ -56,10 +56,15 @@ class ReportController extends Controller
             $monthCount[] = count($values);
         }
 
-        $donations = Donation::whereYear('date', $todayDate->year)->whereMonth('date', $month)->sum('amount');
-        $expenses = Expense::whereYear('date', $todayDate->year)->whereMonth('date', $month)->sum('expense_amount');
 
-        return view('reports.index', ['overall_total' => $overall_total, 'data' => $data, 'months' => $months, 'monthCount' => $monthCount, 'monthlyCollection' => $array_data_collection, 'thisMonth' => $thisMonthTotal, 'donations' => $donations, 'expenses' => $expenses]);
+        $expenses = Expense::whereMonth('date', '=', $todayDate->month)->whereYear('date', '=' , $todayDate->year)->sum('expense_amount');
+        $donations = Donation::whereYear('date', $todayDate->year)->whereMonth('date', $todayDate->month)->sum('amount');
+        $chapelIncomesTotal = ChapelCollections::whereYear('date', $todayDate->year)->whereMonth('date', $todayDate->month)->sum('first_collection');
+        $churchIncomesTotal = ChurchCollections::whereYear('date', $todayDate->year)->whereMonth('date', $todayDate->month)->sum('total');
+        $netTotal = $chapelIncomesTotal + $churchIncomesTotal + $donations;
+        $netTotal = $netTotal - $expenses;
+
+        return view('reports.index', ['overall_total' => $overall_total, 'data' => $data, 'months' => $months, 'monthCount' => $monthCount, 'monthlyCollection' => $array_data_collection, 'thisMonth' => $thisMonthTotal, 'donations' => $donations, 'expenses' => $expenses, 'netTotal' => $netTotal]);
     }
 
     public function conductStatement()

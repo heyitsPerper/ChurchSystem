@@ -58,7 +58,25 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 EXPENSES</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">₱ {{number_format($expenses, 2)}}</div>
-                                <a href="{{route('report.statement-conduct')}}" class="small card-link stretched-link">View Details</a>
+                                <a href="{{route('expense.index')}}" class="small card-link stretched-link">View Details</a>
+                            </div>
+                            <div class="col-auto">
+                            <i class="far fa-check-circle fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                THIS MONTH NET INCOME</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">₱ {{number_format($netTotal, 2)}}</div>
+                                <a href="{{route('report.statement-conduct')}}" class="small card-link stretched-link">Generate Income Statement</a>
                             </div>
                             <div class="col-auto">
                             <i class="far fa-check-circle fa-2x text-gray-300"></i>
@@ -156,7 +174,7 @@
 <script src="{{asset('assets/demo/chart-bar-demo.js')}}"></script> --}}
 
 <script>
-    const collectionCount = {{json_encode($monthCount)}}
+    const collectionCount = {{json_encode($monthlyCollection)}}
     const collectionMonthly = {{json_encode($monthlyCollection)}}
     console.log(collectionMonthly)
     const labels = [

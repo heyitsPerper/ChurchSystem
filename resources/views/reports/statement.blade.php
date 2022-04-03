@@ -31,22 +31,22 @@
                     <div>Income</div>
                     <div style="margin-left: 10px;">
                         <span>Church Collections</span>
-                        <span style="float: right">{{$churchIncomesTotal}}</span>
+                        <span style="float: right">₱ {{number_format($churchIncomesTotal,2)}}</span>
                     </div>
                     <div style="margin-left: 10px;">
                         <span>Chapel Collections</span>
-                        <span style="float: right">{{$chapelIncomesTotal}}</span>
+                        <span style="float: right">₱ {{number_format($chapelIncomesTotal,2)}}</span>
                     </div>
                     <div style="margin-left: 10px;">
                         <span>Donations</span>
-                        <span style="float: right">{{$donationsTotal}}</span>
+                        <span style="float: right">₱ {{number_format($donationsTotal,2)}}</span>
                     </div>
 
                     <div style="border-bottom: 1px solid; margin-top:25px;width:100%;"></div>
 
                     <div>
                         <span>Total Income</span>
-                        <span style="float: right">{{$incomeTotal}}</span>
+                        <span style="float: right">₱ {{number_format($incomeTotal,2)}}</span>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     @foreach ($expenses as $expense)
                         <div style="margin-left: 10px;">
                             <span>{{$expense->expense_for}}</span>
-                            <span style="float: right">{{$expense->expense_amount}}</span>
+                            <span style="float: right">₱ {{number_format($expense->expense_amount,2)}}</span>
                         </div>
                     @endforeach
                     {{-- <div style="margin-left: 10px;">
@@ -73,7 +73,7 @@
 
                     <div>
                         <span>Total Expenses</span>
-                        <span style="float: right">{{$expensesTotal}}</span>
+                        <span style="float: right">₱ {{number_format($expensesTotal,2)}}</span>
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
 
                     <div>
                         <span>Net Income</span>
-                        <span style="float: right">{{$netTotal}}</span>
+                        <span style="float: right">₱ {{number_format($netTotal,2)}}</span>
                     </div>
                 </div>
 
