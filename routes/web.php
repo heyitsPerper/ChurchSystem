@@ -16,6 +16,7 @@ use App\Http\Controllers\Officials_Chapel\Chapel_OfficialsController;
 use App\Http\Controllers\Priest_Sched\Priest_SchedController;
 use App\Http\Controllers\Registered_Users\Registered_UsersController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -122,8 +123,11 @@ Route::get('/displaydata', [EventController::class, 'show']);
 
 // Generated Reports Resource
 Route::get('report/{id}/delete', [ReportController::class, 'destroy']);
-Route::resource('report', ReportController::class);
+Route::get('report', [ReportController::class, 'index'])->name('report.index')->middleware('auth');
 Route::get('/bar-chart', [ReportController::class, 'barChart']);
+Route::get('/report/statement', [ReportController::class, 'conductStatement'])->name('report.statement-conduct')->middleware('auth');
+Route::post('/expense/statement', [ReportController::class, 'generateStatement'])->name('report.statement')->middleware('auth');
+
 
 
 //-------------------------CONSUMERS/USERS RESOURCE-------------------------
@@ -137,6 +141,8 @@ Route::post('consumer/signup', [ConsumerAuthController::class, 'register'])->nam
 
 Route::get('consumer/confirm', [ConsumerAuthController::class, 'confirmForm'])->name('consumer.confirmForm');
 Route::post('consumer/confirm', [ConsumerAuthController::class, 'confirm'])->name('consumer.confirm');
+
+Route::resource('expense', ExpenseController::class)->middleware('auth');
 
 // Dashboard, Officers, Priest Sched, Request Certificate Resource
 Route::prefix('consumer')->middleware('isConsumer')->group(function () {
