@@ -14,10 +14,14 @@
 <body>
     <div class="d-flex justify-content-center">
         <div class="my-3">
-            {{-- <div class="d-flex">
+
+            {{-- Print --}}
+            <div class="d-flex">
                 <div class="me-auto"></div>
-                <button class="btn btn-primary my-2" onclick="printJS({printable: 'paper', type: 'html', style: '@page { size: A4 portrait; }', css: '{{asset('css/app.css')}}' })">Print</button>
-            </div> --}}
+                <button class="btn btn-primary my-2" onclick="printJS({printable: 'paper', type: 'html', style: '@page { size: A4 portrait; }', css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' })">Print</button>
+            </div>
+            {{-- End of print --}}
+
             <div class="card paper" id="paper" style="width: 21cm; height: 25cm;">
                 <div class="paper-header text text-center mt-5">
                     <h5 class="mb-0"><b>Nuestra Señora dela Asuncion Parish</b></h5>
