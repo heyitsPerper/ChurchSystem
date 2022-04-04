@@ -3,25 +3,26 @@
 namespace App\Http\Controllers\Priest_Sched;
 
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\Priest_Sched;
 
 class Priest_SchedController extends Controller
 {
     //search date
-    public function search(Request $request)  
+    public function search(Request $request)
     {
         if(isset($_GET['query']))
         {
              $search_text = $_GET['query'];
              $date = Priest_Sched::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
              return view('priest_schedule.index', ['date'=>$date]);
-        }   
-        else                                                                               
+        }
+        else
         {
              return view('priest_schedule.index');
         }
-    } 
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,8 +30,9 @@ class Priest_SchedController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Priest_Sched::orderBy('date','asc')->paginate(5);
+
         return view('priest_schedule.index',['data'=>$data]);
     }
 
@@ -79,7 +81,7 @@ class Priest_SchedController extends Controller
     {
         $data=Priest_Sched::find($id);
         return view('priest_schedule.edit',['data'=>$data]);
-  
+
     }
 
     /**
@@ -92,7 +94,7 @@ class Priest_SchedController extends Controller
     public function update(Request $request, $id)
     {
        $input = $request->all();
-       
+
        $validator = $request->validate([
              'date'=>'required',
              'time_in'=>'required',

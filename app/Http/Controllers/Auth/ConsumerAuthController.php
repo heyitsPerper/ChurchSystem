@@ -10,6 +10,7 @@ use App\Models\Announcements;
 use App\Models\ChapelOfficials;
 use App\Models\ChurchOfficials;
 use App\Models\Consumer;
+use App\Helpers\PurokHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -98,8 +99,13 @@ class ConsumerAuthController extends Controller
 
     public function dashboard()
     {
-        $currentAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))->get();
-        $upcomingAnnouncements = Announcements::where('location', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))->get();
+        $currentAnnouncements = Announcements::where('date', now()->format('Y-m-d'))->where('purok', 'all')
+        ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', now()->format('Y-m-d'))
+        ->get();
+
+        $upcomingAnnouncements = Announcements::where('date', '>', now()->format('Y-m-d'))->where('purok', 'all')
+        ->orWhere('purok', auth()->guard('consumer')->user()->purok)->where('date', '>', now()->format('Y-m-d'))
+        ->get();
 
         return view('consumer.dashboard', [
             'currentAnnouncements' => $currentAnnouncements,
@@ -115,12 +121,14 @@ class ConsumerAuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect(route('consumer.loginForm'));
+        return redirect('/');
     }
 
     public function profile(Request $request)
     {
-        return view('consumer.profile');
+        $puroks = PurokHelper::getPurok();
+        $puroks = array_except($puroks, 0);
+        return view('consumer.profile', ['puroks' => $puroks]);
     }
 
     public function update(ConsumerProfileRequest $request)

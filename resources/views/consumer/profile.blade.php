@@ -32,7 +32,16 @@
                 </div>
                 <div class="form-group">
                     <label for="purok">Purok</label>
-                    <input type="text" name="purok" id="purok" class="form-control" value="{{old('purok') ?? auth()->guard('consumer')->user()->prettyPurok()}}" readonly>
+                    <select name="purok" id="purok" class="form-control">
+                        <option value="" selected disabled>Select Purok</option>
+                        @foreach ($puroks as $purok)
+                            @if ($purok == old('purok') || $purok == auth()->guard('consumer')->user()->purok)
+                                <option value="{{$purok}}" selected>{{Illuminate\Support\Str::title($purok)}}</option>
+                            @else
+                                <option value="{{$purok}}">{{Illuminate\Support\Str::title($purok)}}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="contact_number">Contact Number</label>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Certificates;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\Confirmation;
 use Carbon\Carbon;
@@ -43,6 +45,9 @@ class ConfirmationController extends Controller
     {
         $confirmation->status = 'done';
         $confirmation->update();
+
+        $certificateRequest = CertificateRequest::where('request_id',$confirmation->id)->where('request_type', 'confirmation');
+        $certificateRequest->delete();
         return redirect()->back();
     }
 
@@ -55,6 +60,7 @@ class ConfirmationController extends Controller
     {
         $data = Confirmation::where('status', 'done')->orderBy('id', 'asc')->paginate(5);
         $pendings = Confirmation::where('status', 'printing')->count();
+
         return view('certificate_confirmation.index', ['data' => $data, 'pendings' => $pendings]);
     }
 
@@ -84,6 +90,7 @@ class ConfirmationController extends Controller
             'father_name' => 'required',
             'address' => 'required',
             'confirmation_date' => 'required',
+            'time' => 'required',
             'minister' => 'required',
             'sponsors' => 'required'
         ]);
@@ -96,10 +103,10 @@ class ConfirmationController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->confirmation_date = $request->confirmation_date;
+        $data->time = $request->time;
         $data->minister = $request->minister;
         $data->sponsors = $request->sponsors;
         $data->save();
-
         return redirect('confirmation_info/create')->with('msg', 'Data has been submitted');
     }
 
@@ -144,6 +151,7 @@ class ConfirmationController extends Controller
             'father_name' => 'required',
             'address' => 'required',
             'confirmationdate' => 'required',
+            'time' => 'required',
             'minister' => 'required',
             'sponsors' => 'required'
         ]);
@@ -156,6 +164,8 @@ class ConfirmationController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->confirmationdate = $request->confirmationdate;
+
+        $data->time = $request->time;
         $data->minister = $request->minister;
         $data->sponsors = $request->sponsors;
         $data->save();

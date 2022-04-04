@@ -39,7 +39,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date of Baptism</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,7 +60,7 @@
                                                     @csrf
                                                     <button type="submit" class="btn btn-success btn-sm">Done</button>
                                                 </form>
-                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" class="btn btn-secondary btn-sm ms-4">Print</a>
+                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" target="_blank" class="btn btn-secondary btn-sm ms-4">Print</a>
                                             @endif
 
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
@@ -90,7 +90,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date of Baptism</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,7 +105,7 @@
                                         <td>
                                             @if($d->status == 'done')
                                                 {{-- <button class="btn btn-success btn-sm" onclick="window.print()">Print</button> --}}
-                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" class="btn btn-success btn-sm">Print</a>
+                                                <a href="{{route('baptismal.printView', ['baptismal' => $d])}}" target="_blank" class="btn btn-success btn-sm">Print</a>
                                             @endif
 
                                             <a href="{{url('baptismal_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>

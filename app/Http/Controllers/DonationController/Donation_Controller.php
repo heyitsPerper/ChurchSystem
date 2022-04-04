@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\DonationController;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\Donation;
 
 class Donation_Controller extends Controller
 {
    //search celebration date
-   public function search(Request $request)  
+   public function search(Request $request)
    {
        if(isset($_GET['query']))
        {
             $search_text = $_GET['query'];
             $date = Donation::where('date', 'LIKE', '%' .$search_text. '%')->paginate(5);
             return view('donation_view.index', ['date'=>$date]);
-       }   
+       }
        else
        {
             return view('donation_view.index');
        }
-   } 
+   }
 
     /**
      * Display a listing of the resource.
@@ -29,8 +31,9 @@ class Donation_Controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Donation::orderBy('id','asc')->paginate(5);
+
         return view('donation_view.index',['data'=>$data]);
     }
 

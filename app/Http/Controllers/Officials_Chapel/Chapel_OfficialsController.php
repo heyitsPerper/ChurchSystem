@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Officials_Chapel;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\ChapelOfficials;
 
@@ -14,8 +16,9 @@ class Chapel_OfficialsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=ChapelOfficials::orderBy('id','asc')->paginate(5);
+
         return view('officials_chapel.index',['data'=>$data]);
     }
 

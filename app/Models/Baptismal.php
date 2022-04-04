@@ -20,6 +20,7 @@ class Baptismal extends Model
         'father_name',
         'address',
         'baptism_date',
+        'time',
         'minister',
         'sponsors',
         'status'

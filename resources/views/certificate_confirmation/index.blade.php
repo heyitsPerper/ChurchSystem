@@ -38,8 +38,8 @@
                                     <th>Date of Baptism</th>
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
-                                    <th>Date Confirmed</th>
-                                    <th width="21%">Action</th>
+                                    <th>Date of Confirmation</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                                                         @csrf
                                                         <button type="submit" class="btn btn-success btn-sm">Done</button>
                                                     </form>
-                                                    <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" class="btn btn-secondary btn-sm">Print</a>
+                                                    <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" target="_blank" class="btn btn-secondary btn-sm">Print</a>
                                                     @endif
 
                                                     <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>
@@ -89,7 +89,7 @@
                                     <th>Name of Mother</th>
                                     <th>Name of Father</th>
                                     <th>Date Confirmed</th>
-                                    <th width="21%">Action</th>
+                                    <th width="26%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,7 +103,7 @@
                                             <td> {{$d->confirmation_date}}</td>
                                             <td>
                                                 @if($d->status == 'done')
-                                                        <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" class="btn btn-success btn-sm">Print</a>
+                                                        <a href="{{route('confirmation.printView', ['confirmation' => $d])}}" target="_blank" class="btn btn-success btn-sm">Print</a>
                                                 @endif
 
                                                 <a href="{{url('confirmation_info/'.$d->id)}}" class="btn btn-warning btn-sm">Show</a>

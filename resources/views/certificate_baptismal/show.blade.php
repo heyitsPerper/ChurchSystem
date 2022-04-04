@@ -17,13 +17,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Date of Birth</th>  
+                    <th>Date of Birth</th>
                     <td>
                         {{$data->birth_date}}
 
                     </td>
                 </tr>
-                <tr>   
+                <tr>
                     <th>Place of Birth</th>
                     <td>
                         {{$data->birth_place}}
@@ -54,24 +54,30 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Date of Baptism</th> 
+                    <th>Date of Baptism</th>
                     <td>
                         {{$data->baptism_date}}
                     </td>
                 </tr>
-                <tr> 
-                    <th>Minister</th>    
+                <tr>
+                    <th>Time of Baptism</th>
+                    <td>
+                        {{$data->time}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Minister</th>
                     <td>
                         {{$data->minister}}
                     </td>
                 </tr>
                 <tr>
-                    <th>Sponsors</th> 
+                    <th>Sponsors</th>
                     <td>
                         {{$data->sponsors}}
                     </td>
                 </tr>
-            </table> 
+            </table>
         </div>
     </div>
 </div>

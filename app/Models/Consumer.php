@@ -30,4 +30,9 @@ class Consumer extends Authenticatable
     {
         return Str::title($this->purok);
     }
+
+    public function certificate_requests()
+    {
+        return $this->hasMany(CertificateRequest::class);
+    }
 }

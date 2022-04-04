@@ -19,6 +19,7 @@ class Confirmation extends Model
         'father_name',
         'address',
         'confirmation_date',
+        'time',
         'minister',
         'sponsors',
         'status'

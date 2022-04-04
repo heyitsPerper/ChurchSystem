@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Officials_Church;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
+use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
 use App\Models\ChurchOfficials;
 
@@ -14,8 +16,9 @@ class Church_OfficialsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=ChurchOfficials::orderBy('id','asc')->paginate(5);
+
         return view('officials_church.index',['data'=>$data]);
     }
 
@@ -84,7 +87,7 @@ class Church_OfficialsController extends Controller
         $data->official_name=$request->official_name;
         $data->contact_number=$request->contact_number;
         $data->save();
-        
+
         return redirect('church_officials/'.$id.'/edit')->with('msg','Data has been updated');
     }
 

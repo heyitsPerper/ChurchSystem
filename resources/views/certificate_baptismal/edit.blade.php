@@ -25,12 +25,12 @@
                             <input type="text" value="{{$data->child_name}}" name="child_name" class="form-control" required>
 
                         </td>
-                    </tr> 
+                    </tr>
                     <tr>
                         <th>Date of Birth</th>
                         <td>
                             <input type="date" value="{{$data->birth_date}}" name="birth_date" class="form-control" required>
-    
+
                         </td>
                     </tr>
                     <tr>
@@ -45,8 +45,8 @@
                             <input @if($data->legitimate_ill==0) checked @endif type="radio" name="legitimate_ill" value="0" /> Legitimate
                             <br />
                             <input @if($data->legitimate_ill==1) checked @endif type="radio" name="legitimate_ill" value="1" /> Illegitimate
-                            <br />  
-                        </td> 
+                            <br />
+                        </td>
                     </tr>
                     <tr>
                         <th>Name of Mother</th>
@@ -72,7 +72,13 @@
                             <input type="date" value="{{$data->baptism_date}}" name="baptism_date" class="form-control" required>
                         </td>
                     </tr>
-                    <tr> 
+                    <tr>
+                        <th>Time of Baptism</th>
+                        <td>
+                            <input type="time" value="{{$data->time}}" name="time" class="form-control" required>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Minister</th>
                         <td>
                             <input type="text" value="{{$data->minister}}" name="minister" class="form-control" required>

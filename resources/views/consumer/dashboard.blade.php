@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-md-7 card shadow p-3">
-            <h5>Upcoming Announcement(s)</h5>
+            <h5>Upcoming Activities</h5>
             <div class="overflow-auto" style="height: 60vh">
                 @forelse ($upcomingAnnouncements as $announcement)
                     <div class=" card m-2 p-3">

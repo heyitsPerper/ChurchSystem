@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\Certificates;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; 
+use App\Models\CertificateRequest;
+use Illuminate\Http\Request;
 use App\Models\Death;
 
 class DeathController extends Controller
 {
     //search deceased name
-    public function search(Request $request)  
+    public function search(Request $request)
     {
         if(isset($_GET['query']))
         {
              $search_text = $_GET['query'];
              $deceased_name = Death::where('deceased_name', 'LIKE', '%' .$search_text. '%')->paginate(5);
              return view('certificate_death.index', ['deceased_name'=>$deceased_name]);
-        }   
-        else                                                                               
+        }
+        else
         {
              return view('certificate_death.index');
         }
-    } 
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,8 +31,10 @@ class DeathController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Death::orderBy('burial_date','desc')->paginate(5);
+
+
         return view('certificate_death.index',['data'=>$data]);
     }
 
@@ -63,7 +67,7 @@ class DeathController extends Controller
             'death_place'=>'required',
             'minister'=>'required'
         ]);
-        
+
         $data=new Death();
         $data->deceased_name=$request->deceased_name;
         $data->death_date=$request->death_date;
@@ -134,7 +138,7 @@ class DeathController extends Controller
         $data->death_cause=$request->death_cause;
         $data->death_place=$request->death_place;
         $data->minister=$request->minister;
-        $data->save(); 
+        $data->save();
 
         return redirect('death_info/'.$id.'/edit')->with('msg','Data has been updated');
     }

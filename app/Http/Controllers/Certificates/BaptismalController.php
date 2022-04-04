@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Certificates;
 
+use App\Helpers\ChildHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Baptismal;
+use App\Models\CertificateRequest;
 use Carbon\Carbon;
 
 class BaptismalController extends Controller
@@ -46,6 +48,10 @@ class BaptismalController extends Controller
     {
         $baptismal->status = 'done';
         $baptismal->update();
+
+        $certificateRequest = CertificateRequest::where('request_id',$baptismal->id)->where('request_type', 'baptismal');
+        $certificateRequest->delete();
+
         return redirect()->back();
     }
 
@@ -94,6 +100,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:8',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:8',
             'sponsors' => 'required|string|min:8'
         ]);
@@ -112,7 +119,9 @@ class BaptismalController extends Controller
     public function show($id)
     {
         $data = Baptismal::find($id);
-        return view('certificate_baptismal.show', ['data' => $data]);
+        $notifications = CertificateRequest::all();
+        $childName = ChildHelper::getChildNames($notifications);
+        return view('certificate_baptismal.show', ['data' => $data, 'notifications' => $notifications, 'childNames' => $childName]);
     }
 
     /**
@@ -146,6 +155,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:3',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:3',
             'sponsors' => 'required|string|min:3'
         ]);
@@ -159,6 +169,7 @@ class BaptismalController extends Controller
         $data->father_name = $request->father_name;
         $data->address = $request->address;
         $data->baptism_date = $request->baptism_date;
+        $data->time = $request->time;
         $data->minister = $request->minister;
         $data->sponsors = $request->sponsors;
         $data->save();
@@ -189,6 +200,7 @@ class BaptismalController extends Controller
             'father_name' => 'required|string|min:8',
             'address' => 'required|string',
             'baptism_date' => 'required|date',
+            'time' => 'required',
             'minister' => 'required|string|min:8',
             'sponsors' => 'required|string|min:8'
         ]);
@@ -202,6 +214,7 @@ class BaptismalController extends Controller
             'father_name' => $request->father_name,
             'address' => $request->address,
             'baptism_date' => $request->baptism_date,
+            'time' => $request->time,
             'minister' => $request->minister,
             'sponsors' => $request->sponsors
         ]);

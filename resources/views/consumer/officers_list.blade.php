@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-md-4 card shadow p-3">
-            <h5>{{ auth()->guard('consumer')->user()->prettyPurok(0) }} Chapel Officers</h5>
+            <h5>{{ auth()->guard('consumer')->user()->prettyPurok(0) }} Chapel President</h5>
             <div class="overflow-auto" style="height: 60vh">
                 @forelse ($chapelOfficers as $officer)
                     <div class="card m-2 p-3">

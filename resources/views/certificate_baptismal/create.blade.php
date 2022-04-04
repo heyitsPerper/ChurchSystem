@@ -120,6 +120,18 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Time of Baptism</th>
+                        <td>
+                            <input type="time" name="time" class="form-control" value="{{ (old('time')) }}" required>
+                            @error('time')
+                                <br>
+                                <div>
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            @enderror
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Minister</th>
                         <td>
                             <input type="text" name="minister" class="form-control" value="{{ (old('minister')) }}" required>

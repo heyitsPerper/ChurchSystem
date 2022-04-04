@@ -90,6 +90,23 @@
                 </a>
             </li>
 
+            <li class="nav-item @if (request()->routeIs('expense.*')) active @endif">
+                <a class="nav-link" href="{{route('expense.index')}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                        <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+                      </svg>
+                    <span>Expenses</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Registered User
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('registeredusers')}}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Registered Users</span>
+                </a>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
