@@ -69,7 +69,8 @@ class ReportController extends Controller
 
     public function conductStatement()
     {
-        return view('reports.create');
+        $months = MonthHelper::getMonths();
+        return view('reports.create', compact('months'));
     }
 
     public function generateStatement(Request $request)

@@ -23,4 +23,9 @@ class MonthHelper
     {
         return self::$months[$month];
     }
+
+    public static function getMonths()
+    {
+        return self::$months;
+    }
 }

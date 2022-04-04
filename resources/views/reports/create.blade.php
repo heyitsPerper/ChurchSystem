@@ -16,7 +16,12 @@
                     <tr>
                         <th>Month</th>
                         <td>
-                            <input type="number" name="month_issue" class="form-control" value="{{ (old('month_issue')) }}" required>
+                            <select name="month_issue" id="month_issue" class="form-control">
+                                <option value="">Please select one</option>
+                                @foreach ($months as $month => $value)
+                                <option value="{{$month}}">{{$value}}</option>
+                                @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr>
