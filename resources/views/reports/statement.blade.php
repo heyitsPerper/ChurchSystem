@@ -16,10 +16,10 @@
         <div class="my-3">
 
             {{-- Print --}}
-            <div class="d-flex">
+            {{-- <div class="d-flex">
                 <div class="me-auto"></div>
                 <button class="btn btn-primary my-2" onclick="printJS({printable: 'paper', type: 'html', style: '@page { size: A4 portrait; }', css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' })">Print</button>
-            </div>
+            </div> --}}
             {{-- End of print --}}
 
             <div class="card paper" id="paper" style="width: 21cm; height: 25cm;">
