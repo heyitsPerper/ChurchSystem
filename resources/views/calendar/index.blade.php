@@ -47,20 +47,43 @@
             return sched;
         }
 
+        function getMonth(month)
+        {
+            let months = {
+                 'Jan' :'01',
+                 'Feb' :'02',
+                 'Mar' :'03',
+                 "Apr" :'04',
+                 'May' :'05',
+                 'Jun' :'06',
+                 'Jul' :'07',
+                 'Aug' :'08',
+                 'Sep' :'09',
+                'Oct':'10',
+                'Nov':'11',
+                'Dec' : '12'
+            }
+
+            return months[month]
+        }
+
         function toReadableDateFormat(date)
         {
-            let dateToday = new Date(date)
-            return `${dateToday.getDay()}/${dateToday.getMonth()}/${dateToday.getFullYear()}`
+            let dateArray = date.split(" ")
+            return `${dateArray[2]}/${getMonth(dateArray[1])}/${dateArray[3]}`
         }
 
         function toReadableTimeFormat(time)
         {
-            let timeToday = new Date(time)
-            if(timeToday.getHours() < 12)
+            time = time.split(" ")
+            let timeArray = time[4].split(":")
+
+
+            if(timeArray[0] < 12)
             {
-                return `${timeToday.getHours()}:${timeToday.getMinutes()} AM`
+                return `${timeArray[0]}:${timeArray[1]} AM`
             }else{
-                return `${timeToday.getHours() - 12}:${timeToday.getMinutes()} PM`
+                return `${timeArray[0] - 12}:${timeArray[1]} PM`
             }
         }
 
@@ -79,13 +102,14 @@
                 events: schedWithFormat,
                 eventClick: function(info){
                     var eventObj = info.event;
-                    console.log(toReadableDateFormat(eventObj.start))
+                    let text = eventObj.start.toString()
+                    toReadableTimeFormat(text)
 
                     Swal.fire({
                         title: eventObj.title,
                         html: `
-                            Event Start <input type="text" value="${toReadableDateFormat(eventObj.start)} - ${toReadableTimeFormat(eventObj.start)}" class="form-control text-center" readonly>
-                            Event End <input type="text" value="${toReadableDateFormat(eventObj.end)} - ${toReadableTimeFormat(eventObj.end)}" class="form-control text-center" readonly>
+                            Event Start <input type="text" value="${toReadableDateFormat(eventObj.start.toString())} - ${toReadableTimeFormat(eventObj.start.toString())}" class="form-control text-center" readonly>
+                            Event End <input type="text" value="${toReadableDateFormat(eventObj.end.toString())} - ${toReadableTimeFormat(eventObj.end.toString())}" class="form-control text-center" readonly>
                         `
                     })
                 }
